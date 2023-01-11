@@ -22,4 +22,10 @@ public class Menu extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), InsertSpending.class);
         startActivityForResult(intent, reqCode);
     }
+
+    public void btnViewConsumption(View view){
+        // creates the explicit intent
+        Intent intent = new Intent(getApplicationContext(), MenuDataView.class);
+        startActivityForResult(intent, reqCode);
+    }
 }

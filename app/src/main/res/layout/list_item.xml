@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="5dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/msg_name_game"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="Nome do Jogo "
+            android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/msg_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2022/03/03"
+            android:paddingRight="10dp"
+            android:textSize="16sp"></TextView>
+
+        <Button
+            android:id="@+id/btn_remove"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="remover"
+
+            app:rippleColor="#E91E63" />
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/msg_name_player1"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:textSize="16sp"></TextView>
+
+        <TextView
+            android:id="@+id/msg_sets_score_player1"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:text="0" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/msg_name_player2"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:textSize="16sp"></TextView>
+
+        <TextView
+            android:id="@+id/msg_sets_score_player2"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:text="0" />
+
+
+    </LinearLayout>
+
+</LinearLayout>
+
+
