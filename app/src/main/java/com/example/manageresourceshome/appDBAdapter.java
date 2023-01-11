@@ -14,16 +14,16 @@ public class appDBAdapter {
     int DB_VERSION = 1;
 
     String SQL_CREATE = "CREATE TABLE " + DB_TABLE_MOUNT +
-            " (dia INTEGER NOT NULL, " +
-            "water INTEGER NOT NULL, " +
-            "gas INTEGER NOT NULL," +
-            "light INTEGER NOT NULL); ";
+            " (d_dia TEXT NOT NULL, " +
+            "d_water INTEGER NOT NULL, " +
+            "d_gas INTEGER NOT NULL," +
+            "d_light INTEGER NOT NULL); ";
 
     String SQL_CREATE2 = "CREATE TABLE " + DB_TABLE_YEAR +
-            " (mount INTEGER NOT NULL, " +
-            "water INTEGER NOT NULL, " +
-            "gas INTEGER NOT NULL," +
-            "light INTEGER NOT NULL); ";
+            " (m_mount TEXT NOT NULL, " +
+            "m_water INTEGER NOT NULL, " +
+            "m_gas INTEGER NOT NULL," +
+            "m_light INTEGER NOT NULL); ";
 
     String SQL_DROP = "DROP TABLE IF EXISTS " + DB_TABLE_MOUNT;
     String SQL_DROP2 = "DROP TABLE IF EXISTS " + DB_TABLE_YEAR;
@@ -60,11 +60,24 @@ public class appDBAdapter {
     //---------------------------------------------
 
     public void open() throws SQLException {
-        db= dbHelper.getWritableDatabase();
+        db = dbHelper.getWritableDatabase();
     }
 
     public void close(){
         dbHelper.close();
+    }
+
+    // insere os gastos de um determinado dia
+    public long insertDaySpending(DaySpending aDaySpending){
+        ContentValues vals = new ContentValues();
+        vals.put("d_dia", aDaySpending.getDate());
+        vals.put("d_water", aDaySpending.getSpedingEnergy());
+        vals.put("d_gas", aDaySpending.getSpedingGas());
+        vals.put("d_light", aDaySpending.getSpedingWater());
+
+        return db.insert(DB_TABLE_MOUNT,  // table
+                null,           // null when some value is provided (nullColumnHack)
+                vals );         // initial values
     }
 
     public void clearDataMount(){
