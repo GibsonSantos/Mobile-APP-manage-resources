@@ -18,7 +18,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    //passando o utilizador para a activit novo jogo
     public void btnStart(View view){
         // creates the explicit intent
         Intent intent = new Intent(getApplicationContext(), Menu.class);
