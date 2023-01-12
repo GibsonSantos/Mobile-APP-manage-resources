@@ -1,6 +1,5 @@
 package com.example.manageresourceshome;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.database.Cursor;
@@ -57,28 +56,23 @@ public class ListDaysSpending extends AppCompatActivity {
     public void loadContacts() {
         VectorDaySpeding = new Vector<>();
         gAdapter.open();
-        Cursor curRes = gAdapter.getAllGames();
+        Cursor curRes = gAdapter.getAllDaysSepending();
         if(curRes!=null){
             if(curRes.getCount()==0){
-                Toast.makeText(this, "Não existem jogos finalizados!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Não existem dias em que foram registrados o cosumo!", Toast.LENGTH_SHORT).show();
                 return;
             }
             StringBuilder sb = new StringBuilder();
 
             curRes.moveToFirst();
             while(!curRes.isAfterLast()){
-                //String player1, String player2, String stringDate, String aNameTorneio, String aSet_Player1, String aSet_Player2,String aWinner
-                Game game = new Game(curRes.getString(0),curRes.getString(1)
-                        ,curRes.getString(2),curRes.getString(3),curRes.getString(4),
-                        curRes.getString(5),curRes.getString(6),curRes.getString(7));
-                games.add(0,game);
+                DaySpending daySpending = new DaySpending(curRes.getString(0),curRes.getFloat(1),curRes.getFloat(2),curRes.getFloat(3));
+                VectorDaySpeding.add(0,daySpending);
                 curRes.moveToNext();
             }
         }
 
         gAdapter.close();
-
-        //games = MainActivity.gereGames.getGames();
     }
 
     // This is the adapter. BaseAdapter is abstract. Some methods must be implemented.
@@ -106,47 +100,30 @@ public class ListDaysSpending extends AppCompatActivity {
             }
 
             // These are the Views inside the ListView item
-            TextView textPlayer1 = (TextView) rowView.findViewById(R.id.msg_name_player1);
-            TextView textPlayer2 = (TextView) rowView.findViewById(R.id.msg_name_player2);
-            TextView nameTorneio = (TextView) rowView.findViewById(R.id.msg_name_game);
+
             TextView date = (TextView) rowView.findViewById(R.id.msg_date);
-            TextView setsPLayer1 = (TextView) rowView.findViewById(R.id.msg_sets_score_player1);
-            TextView setsPLayer2 = (TextView) rowView.findViewById(R.id.msg_sets_score_player2);
-            ImageView imagePlayer1 = (ImageView) rowView.findViewById(R.id.imageViewPlayer1);
-            ImageView imagePlayer2 = (ImageView) rowView.findViewById(R.id.imageViewPlayer2);
-            Button btnRemove = (Button) rowView.findViewById(R.id.btn_remove);
-            btnRemove.setBackgroundColor(Color.RED);
-            btnRemove.setTextColor(Color.WHITE);
+            TextView textWater = (TextView) rowView.findViewById(R.id.msg_spending_water);
+            TextView textGas = (TextView) rowView.findViewById(R.id.msg_spending_gas);
+            TextView textEnery = (TextView) rowView.findViewById(R.id.msg_spending_energy);
+            Button btnEdit = (Button) rowView.findViewById(R.id.btn_edit);
+            btnEdit.setBackgroundColor(Color.YELLOW);
+            btnEdit.setTextColor(Color.BLACK);
 
 
             // obtains the contact for this position
-            Game game = adaptContacts.get(position);
+            DaySpending daySpending = adaptContacts.get(position);
 
-            textPlayer1.setText(game.getPlayer1());
-            textPlayer2.setText(game.getPlayer2());
-            nameTorneio.setText(game.getNameTorneio());
-            date.setText(game.getGameStringDate(game.getGameDate()));
-            setsPLayer1.setText(game.getSetsPlayer1());
-            setsPLayer2.setText(game.getSetsPlayer2());
+            textWater.setText(String.valueOf(daySpending.getSpedingWater()));
+            textGas.setText(String.valueOf(daySpending.getSpedingGas()));
+            textEnery.setText(String.valueOf(daySpending.getSpedingEnergy()));
+            date.setText(daySpending.getDate());
 
-            //caso tenha sido o jogador 1 a ganhar o jogo
-            if(game.getWinner().equals(game.getPlayer1())){
-                imagePlayer1.setImageResource(R.drawable.winnerr);
-                imagePlayer2.setImageResource(R.drawable.loser);
-                setsPLayer1.setTextColor(Color.GREEN);
-            }else{
-                imagePlayer2.setImageResource(R.drawable.winnerr);
-                imagePlayer1.setImageResource(R.drawable.loser);
-                setsPLayer2.setTextColor(Color.GREEN);
-            }
 
-            btnRemove.setOnClickListener(new View.OnClickListener() {
+            btnEdit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     gAdapter.open();
-                    int numDeleted = gAdapter.deleteGame(game.getIdGame());
                     gAdapter.close();
-                    //MainActivity.gereGames.getGames().remove(games.get(position));
                     loadContacts();
                     displayGames();
                 }

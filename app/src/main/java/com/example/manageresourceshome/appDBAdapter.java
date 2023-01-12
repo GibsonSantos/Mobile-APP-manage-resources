@@ -15,15 +15,15 @@ public class appDBAdapter {
 
     String SQL_CREATE = "CREATE TABLE " + DB_TABLE_MOUNT +
             " (d_dia TEXT NOT NULL, " +
-            "d_water INTEGER NOT NULL, " +
-            "d_gas INTEGER NOT NULL," +
-            "d_light INTEGER NOT NULL); ";
+            "d_water FLOAT NOT NULL, " +
+            "d_gas FLOAT NOT NULL," +
+            "d_light FLOAT NOT NULL); ";
 
     String SQL_CREATE2 = "CREATE TABLE " + DB_TABLE_YEAR +
             " (m_mount TEXT NOT NULL, " +
-            "m_water INTEGER NOT NULL, " +
-            "m_gas INTEGER NOT NULL," +
-            "m_light INTEGER NOT NULL); ";
+            "m_water FLOAT NOT NULL, " +
+            "m_gas FLOAT NOT NULL," +
+            "m_light FLOAT NOT NULL); ";
 
     String SQL_DROP = "DROP TABLE IF EXISTS " + DB_TABLE_MOUNT;
     String SQL_DROP2 = "DROP TABLE IF EXISTS " + DB_TABLE_YEAR;
@@ -78,6 +78,19 @@ public class appDBAdapter {
         return db.insert(DB_TABLE_MOUNT,  // table
                 null,           // null when some value is provided (nullColumnHack)
                 vals );         // initial values
+    }
+
+    public Cursor getAllDaysSepending(){
+        Cursor cursor = db.query(
+                DB_TABLE_MOUNT,
+                new String[] {"d_dia","d_water","d_gas","d_light"} , // resultset columns/fields
+                null,                             // condition or selection
+                null,                             // selection arguments (fills in '?' above)
+                null,                             // groupBy
+                null,                             // having
+                null );                           // orderBy
+
+        return cursor;
     }
 
     public void clearDataMount(){
