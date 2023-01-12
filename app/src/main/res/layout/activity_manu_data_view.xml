@@ -10,7 +10,8 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="VIZUALIAR DADOS (CONSUMO DE RECURSOS)"
+        android:text="VIZUALIZAR DADOS (CONSUMO DE RECURSOS)"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -22,25 +23,26 @@
         android:id="@+id/bnt_view_mouth"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=" Consumo total (Mês)"
+        android:text="Estatísticas de consumo (MÊs)"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.288" />
+        app:layout_constraintVertical_bias="0.332" />
 
     <Button
         android:id="@+id/btn_view_daily"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Consumos diários "
         android:onClick="btnDaysSpeding"
+        android:text="Consumos diários "
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.415" />
+        app:layout_constraintVertical_bias="0.499" />
 
     <Button
         android:id="@+id/btn_stipulated"
@@ -49,19 +51,9 @@
         android:text="Consumo ao longo dos mêses"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.554"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.543" />
+        app:layout_constraintVertical_bias="0.677" />
 
-    <Button
-        android:id="@+id/button4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Meta de consumo (Mês) vs Consumido (Mês)"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.675" />
 </androidx.constraintlayout.widget.ConstraintLayout>
