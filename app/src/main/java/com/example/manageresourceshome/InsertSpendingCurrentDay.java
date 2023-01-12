@@ -23,6 +23,7 @@ public class InsertSpendingCurrentDay extends AppCompatActivity {
     private appDBAdapter gAdapter;
     private TextView textViewDate;
     private Button btnSalve;
+    private Button btnCancel;
     private EditText water;
     private EditText gas;
     private EditText energy;
@@ -36,16 +37,17 @@ public class InsertSpendingCurrentDay extends AppCompatActivity {
         gAdapter = new appDBAdapter(this);
 
         btnSalve = (Button) findViewById(R.id.btn_salve);
+        btnCancel = (Button) findViewById(R.id.btn_cancel);
         water = (EditText) findViewById(R.id.edit_insert_water);
         gas = (EditText) findViewById(R.id.edit_insert_gas);
         energy = (EditText) findViewById(R.id.edit_insert_energy);
 
         Date date = Calendar.getInstance().getTime();
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        String gameDateString = dateFormat.format(date);
+        String dateString = dateFormat.format(date);
 
         textViewDate = findViewById(R.id.msg_current_day);
-        textViewDate.setText(gameDateString);
+        textViewDate.setText(dateString);
 
         builder = new AlertDialog.Builder(this);
 
@@ -66,7 +68,7 @@ public class InsertSpendingCurrentDay extends AppCompatActivity {
                     alert.show();
                 }else{
                     gAdapter.open();
-                    long result = gAdapter.insertDaySpending(new DaySpending(gameDateString,parseFloat(water.getText().toString()), parseFloat(gas.getText().toString()),parseFloat(energy.getText().toString())));
+                    long result = gAdapter.insertDaySpending(new DaySpending(dateString,parseFloat(water.getText().toString()), parseFloat(gas.getText().toString()),parseFloat(energy.getText().toString())));
                     if(result < 0){
                         Toast.makeText(getApplicationContext(),"Naõ foi possivel guardar os dados",Toast.LENGTH_SHORT).show();
                     }
@@ -80,6 +82,15 @@ public class InsertSpendingCurrentDay extends AppCompatActivity {
                 }
             }
         });
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+
     }
 
 

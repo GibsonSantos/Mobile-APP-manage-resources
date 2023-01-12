@@ -92,6 +92,17 @@ public class appDBAdapter {
 
         return cursor;
     }
+    //verifica se ja foram inseridos consumos para um determinado dia
+    public Cursor verifyIfAlreadyInsertSpending(String date){
+        String[] selectionArgs = {date};
+        return db.query(DB_TABLE_MOUNT,  // table
+                null,           // columns
+                "d_dia = ?", // selection
+                selectionArgs,  // selectionArgs
+                null,           // groupBy
+                null,           // having
+                null);          // orderBy
+    }
 
     public void clearDataMount(){
         db.execSQL("delete from "+ DB_TABLE_MOUNT);
