@@ -10,27 +10,27 @@
         android:id="@+id/bnt_spending"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Vizualizar Consumo"
         android:onClick="btnViewConsumption"
+        android:text="Vizualizar Consumo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.373" />
+        app:layout_constraintVertical_bias="0.329" />
 
     <Button
         android:id="@+id/bnt_insert_spending"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Inserir Consumo"
         android:onClick="btnInsertData"
+        android:text="Inserir Consumo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.224" />
+        app:layout_constraintVertical_bias="0.197" />
 
     <Button
         android:id="@+id/btn_tutorial"
@@ -39,10 +39,10 @@
         android:text="TUTORIAL"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.528" />
+        app:layout_constraintVertical_bias="0.591" />
 
     <Button
         android:id="@+id/bnt_credits"
@@ -54,7 +54,7 @@
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.809" />
+        app:layout_constraintVertical_bias="0.859" />
 
     <Button
         android:id="@+id/btn_settings"
@@ -66,5 +66,17 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.664" />
+        app:layout_constraintVertical_bias="0.73" />
+
+    <Button
+        android:id="@+id/btn_speding_goal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Metas de consumo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.464" />
 </androidx.constraintlayout.widget.ConstraintLayout>
