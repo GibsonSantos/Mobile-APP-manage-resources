@@ -9,27 +9,27 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class appDBAdapter {
     String DB_NAME = "MyDB";
-    String DB_TABLE_MOUNT = "monthly_expenses";
-    String DB_TABLE_YEAR = "year_expenses";
+    String DB_TABLE_DAYS = "monthly_expenses";
+    String DB_TABLE_MONTHS = "year_expenses";
     int DB_VERSION = 1;
     //esta tabela vai armazenar os valores consumidos para cada dia de um mes
-    String SQL_CREATE = "CREATE TABLE " + DB_TABLE_MOUNT +
+    String SQL_CREATE = "CREATE TABLE " + DB_TABLE_DAYS +
             " (d_dia TEXT NOT NULL, " +
             "d_water FLOAT NOT NULL, " +
             "d_gas FLOAT NOT NULL," +
             "d_light FLOAT NOT NULL); ";
     //esta tabela contem o valor gasto (speding) de cada mes, e o a meta(goal) de consumo para cada recurso
-    String SQL_CREATE2 = "CREATE TABLE " + DB_TABLE_YEAR +
+    String SQL_CREATE2 = "CREATE TABLE " + DB_TABLE_MONTHS +
             " (m_mount TEXT NOT NULL, " +
-            "m_water_speding FLOAT NOT NULL, " +
+            "m_water_speding FLOAT, " +
             "m_water_goal FLOAT NOT NULL, " +
-            "m_gas_speding FLOAT NOT NULL," +
+            "m_gas_speding FLOAT ," +
             "m_gas_goal FLOAT NOT NULL, " +
-            "m_light_speding FLOAT NOT NULL, " +
+            "m_light_speding FLOAT , " +
             "m_light_goal FLOAT NOT NULL); ";
 
-    String SQL_DROP = "DROP TABLE IF EXISTS " + DB_TABLE_MOUNT;
-    String SQL_DROP2 = "DROP TABLE IF EXISTS " + DB_TABLE_YEAR;
+    String SQL_DROP = "DROP TABLE IF EXISTS " + DB_TABLE_DAYS;
+    String SQL_DROP2 = "DROP TABLE IF EXISTS " + DB_TABLE_MONTHS;
 
 
     DatabaseHelper dbHelper;
@@ -78,14 +78,14 @@ public class appDBAdapter {
         vals.put("d_gas", aDaySpending.getSpedingGas());
         vals.put("d_light", aDaySpending.getSpedingWater());
 
-        return db.insert(DB_TABLE_MOUNT,  // table
+        return db.insert(DB_TABLE_DAYS,  // table
                 null,           // null when some value is provided (nullColumnHack)
                 vals );         // initial values
     }
 
     public Cursor getAllDaysSepending(){
         Cursor cursor = db.query(
-                DB_TABLE_MOUNT,
+                DB_TABLE_DAYS,
                 new String[] {"d_dia","d_water","d_gas","d_light"} , // resultset columns/fields
                 null,                             // condition or selection
                 null,                             // selection arguments (fills in '?' above)
@@ -98,7 +98,7 @@ public class appDBAdapter {
     //verifica se ja foram inseridos consumos para um determinado dia
     public Cursor verifyIfAlreadyInsertSpending(String date){
         String[] selectionArgs = {date};
-        return db.query(DB_TABLE_MOUNT,  // table
+        return db.query(DB_TABLE_DAYS,  // table
                 null,           // columns
                 "d_dia = ?", // selection
                 selectionArgs,  // selectionArgs
@@ -107,12 +107,25 @@ public class appDBAdapter {
                 null);          // orderBy
     }
 
+    // insere as metas para um detreminado mês
+    public long insertMonthGoal(MonthsSpeding monthsSpeding){
+        ContentValues vals = new ContentValues();
+        vals.put("m_mount", monthsSpeding.getMonth());
+        vals.put("m_water_goal", monthsSpeding.getWaterSpendingGoal());
+        vals.put("m_gas_goal", monthsSpeding.getGasSpendingGoal());
+        vals.put("m_energy_goal", monthsSpeding.getEnergySpendingGoal());
+
+        return db.insert(DB_TABLE_MONTHS,  // table
+                null,           // null when some value is provided (nullColumnHack)
+                vals );         // initial values
+    }
+
     public void clearDataMount(){
-        db.execSQL("delete from "+ DB_TABLE_MOUNT);
+        db.execSQL("delete from "+ DB_TABLE_DAYS);
     }
 
     public void clearDataYear(){
-        db.execSQL("delete from "+ DB_TABLE_YEAR);
+        db.execSQL("DROP TABLE "+ DB_TABLE_MONTHS);
     }
 
 }
