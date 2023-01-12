@@ -11,7 +11,7 @@ public class appDBAdapter {
     String DB_NAME = "MyDB";
     String DB_TABLE_DAYS = "monthly_expenses";
     String DB_TABLE_MONTHS = "year_expenses";
-    int DB_VERSION = 1;
+    int DB_VERSION = 2;
     //esta tabela vai armazenar os valores consumidos para cada dia de um mes
     String SQL_CREATE = "CREATE TABLE " + DB_TABLE_DAYS +
             " (d_dia TEXT NOT NULL, " +
@@ -113,11 +113,23 @@ public class appDBAdapter {
         vals.put("m_mount", monthsSpeding.getMonth());
         vals.put("m_water_goal", monthsSpeding.getWaterSpendingGoal());
         vals.put("m_gas_goal", monthsSpeding.getGasSpendingGoal());
-        vals.put("m_energy_goal", monthsSpeding.getEnergySpendingGoal());
+        vals.put("m_light_goal", monthsSpeding.getEnergySpendingGoal());
 
         return db.insert(DB_TABLE_MONTHS,  // table
                 null,           // null when some value is provided (nullColumnHack)
                 vals );         // initial values
+    }
+
+    //verifica se ja foram inseridas metas para o mes
+    public Cursor verifyIfAlreadyInsertMonthGoal(String month){
+        String[] selectionArgs = {month};
+        return db.query(DB_TABLE_MONTHS,  // table
+                null,           // columns
+                "m_mount = ?", // selection
+                selectionArgs,  // selectionArgs
+                null,           // groupBy
+                null,           // having
+                null);          // orderBy
     }
 
     public void clearDataMount(){

@@ -38,6 +38,8 @@ public class SpedingGoal extends AppCompatActivity {
         setContentView(R.layout.activity_speding_goal);
 
         gAdapter = new appDBAdapter(this);
+        //carregas as metas já estipuladas para este mes se estas já existirem
+        loadGoals();
 
         btnCancelSpedingGoal = findViewById(R.id.btn_cancel_speding_goal);
         btnSalveSpedingGoal = findViewById(R.id.btn_salve_speding_goal);
@@ -92,5 +94,23 @@ public class SpedingGoal extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public void loadGoals(){
+        gAdapter.open();
+        if(gAdapter.verifyIfAlreadyInsertMonthGoal(StringMonth).getCount()!=0){
+            builder.setMessage("JÁ EXISTEM METAS ESTIPULADAS PARA ESTE MÊS! PODE ALTERALAS E PRESSIONAR O BOTÃO SALVAR")
+                    .setCancelable(false)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                        }
+                    });
+            //Cria um caixa de dialogo
+            AlertDialog alert = builder.create();
+            //Setting the title manually
+            alert.setTitle("ALERTA");
+            alert.show();
+        }
+        gAdapter.close();
     }
 }
