@@ -28,4 +28,10 @@ public class Menu extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), MenuDataView.class);
         startActivityForResult(intent, reqCode);
     }
+
+    public void btnSpedingGoal(View view){
+        // creates the explicit intent
+        Intent intent = new Intent(getApplicationContext(), SpedingGoal.class);
+        startActivityForResult(intent, reqCode);
+    }
 }
