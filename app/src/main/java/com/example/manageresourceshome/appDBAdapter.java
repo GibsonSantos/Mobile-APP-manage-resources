@@ -131,6 +131,19 @@ public class appDBAdapter {
                 null,           // having
                 null);          // orderBy
     }
+    //atualiza as metas de consumo
+    public int updateGoals(MonthsSpeding monthsSpeding){
+        ContentValues values = new ContentValues();
+        values.put("m_water_goal", monthsSpeding.getWaterSpendingGoal());
+        values.put("m_gas_goal", monthsSpeding.getGasSpendingGoal());
+        values.put("m_light_goal", monthsSpeding.getEnergySpendingGoal());
+
+        String whereClause = "m_mount = ?";
+        String[] whereArgs = {monthsSpeding.getMonth()};
+
+        int numberOfRowsAffected = db.update(DB_TABLE_MONTHS, values, whereClause, whereArgs);
+        return numberOfRowsAffected;
+    }
 
     public void clearDataMount(){
         db.execSQL("delete from "+ DB_TABLE_DAYS);

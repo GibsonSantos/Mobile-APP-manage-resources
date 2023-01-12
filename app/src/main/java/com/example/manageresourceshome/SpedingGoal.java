@@ -10,6 +10,7 @@ import java.util.Calendar;
 import java.text.DateFormatSymbols;
 
 import android.content.DialogInterface;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -29,6 +30,7 @@ public class SpedingGoal extends AppCompatActivity {
     private EditText energySpedingGoal;
     private AlertDialog.Builder builder;
     private String StringMonth;
+    private boolean alreadyGols = false;
 
 
 
@@ -38,8 +40,6 @@ public class SpedingGoal extends AppCompatActivity {
         setContentView(R.layout.activity_speding_goal);
 
         gAdapter = new appDBAdapter(this);
-        //carregas as metas já estipuladas para este mes se estas já existirem
-        loadGoals();
 
         btnCancelSpedingGoal = findViewById(R.id.btn_cancel_speding_goal);
         btnSalveSpedingGoal = findViewById(R.id.btn_salve_speding_goal);
@@ -56,6 +56,9 @@ public class SpedingGoal extends AppCompatActivity {
 
         month = (TextView) findViewById(R.id.txt_month_speding_goal);
         month.setText(StringMonth);
+
+        //carregas as metas já estipuladas para este mes se estas já existirem
+        loadGoals();
 
         btnCancelSpedingGoal.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,14 +84,26 @@ public class SpedingGoal extends AppCompatActivity {
                     alert.show();
                 }else{
                     gAdapter.open();
-                    long result = gAdapter.insertMonthGoal(new MonthsSpeding(StringMonth,parseFloat(waterSpedingGoal.getText().toString()),parseFloat(gasSpedingGoal.getText().toString()),parseFloat(energySpedingGoal.getText().toString())));
-                    if(result < 0){
-                        Toast.makeText(getApplicationContext(),"Não foi possivel guardar os dados",Toast.LENGTH_SHORT).show();
-                    }
-                    else{
-                        Toast.makeText(getApplicationContext(),"Dados do jogo guardados!",Toast.LENGTH_SHORT).show();
-                        // end activit
-                        finish();
+                    if(alreadyGols){
+                        int result = gAdapter.updateGoals(new MonthsSpeding(StringMonth,parseFloat(waterSpedingGoal.getText().toString()),parseFloat(gasSpedingGoal.getText().toString()),parseFloat(energySpedingGoal.getText().toString())));
+                        if(result==0){
+                            Toast.makeText(getApplicationContext(),"Não foi possivel guardar os dados",Toast.LENGTH_SHORT).show();
+                        }
+                        else{
+                            Toast.makeText(getApplicationContext(),"Dados do jogo guardados!",Toast.LENGTH_SHORT).show();
+                            // end activit
+                            finish();
+                        }
+                    }else{
+                        long result = gAdapter.insertMonthGoal(new MonthsSpeding(StringMonth,parseFloat(waterSpedingGoal.getText().toString()),parseFloat(gasSpedingGoal.getText().toString()),parseFloat(energySpedingGoal.getText().toString())));
+                        if(result < 0){
+                            Toast.makeText(getApplicationContext(),"Não foi possivel guardar os dados",Toast.LENGTH_SHORT).show();
+                        }
+                        else{
+                            Toast.makeText(getApplicationContext(),"Dados do jogo guardados!",Toast.LENGTH_SHORT).show();
+                            // end activit
+                            finish();
+                        }
                     }
                     gAdapter.close();
                 }
@@ -98,7 +113,10 @@ public class SpedingGoal extends AppCompatActivity {
 
     public void loadGoals(){
         gAdapter.open();
-        if(gAdapter.verifyIfAlreadyInsertMonthGoal(StringMonth).getCount()!=0){
+        System.out.println(StringMonth);
+        Cursor cursor = gAdapter.verifyIfAlreadyInsertMonthGoal(StringMonth);
+        if(cursor.getCount()!=0){
+            alreadyGols = true;
             builder.setMessage("JÁ EXISTEM METAS ESTIPULADAS PARA ESTE MÊS! PODE ALTERALAS E PRESSIONAR O BOTÃO SALVAR")
                     .setCancelable(false)
                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -110,6 +128,12 @@ public class SpedingGoal extends AppCompatActivity {
             //Setting the title manually
             alert.setTitle("ALERTA");
             alert.show();
+
+            cursor.moveToFirst();
+            waterSpedingGoal.setText(cursor.getString(2));
+            gasSpedingGoal.setText(cursor.getString(4));
+            energySpedingGoal.setText(cursor.getString(6));
+
         }
         gAdapter.close();
     }
