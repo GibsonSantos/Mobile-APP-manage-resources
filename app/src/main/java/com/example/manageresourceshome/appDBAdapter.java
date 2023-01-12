@@ -12,18 +12,21 @@ public class appDBAdapter {
     String DB_TABLE_MOUNT = "monthly_expenses";
     String DB_TABLE_YEAR = "year_expenses";
     int DB_VERSION = 1;
-
+    //esta tabela vai armazenar os valores consumidos para cada dia de um mes
     String SQL_CREATE = "CREATE TABLE " + DB_TABLE_MOUNT +
             " (d_dia TEXT NOT NULL, " +
             "d_water FLOAT NOT NULL, " +
             "d_gas FLOAT NOT NULL," +
             "d_light FLOAT NOT NULL); ";
-
+    //esta tabela contem o valor gasto (speding) de cada mes, e o a meta(goal) de consumo para cada recurso
     String SQL_CREATE2 = "CREATE TABLE " + DB_TABLE_YEAR +
             " (m_mount TEXT NOT NULL, " +
-            "m_water FLOAT NOT NULL, " +
-            "m_gas FLOAT NOT NULL," +
-            "m_light FLOAT NOT NULL); ";
+            "m_water_speding FLOAT NOT NULL, " +
+            "m_water_goal FLOAT NOT NULL, " +
+            "m_gas_speding FLOAT NOT NULL," +
+            "m_gas_goal FLOAT NOT NULL, " +
+            "m_light_speding FLOAT NOT NULL, " +
+            "m_light_goal FLOAT NOT NULL); ";
 
     String SQL_DROP = "DROP TABLE IF EXISTS " + DB_TABLE_MOUNT;
     String SQL_DROP2 = "DROP TABLE IF EXISTS " + DB_TABLE_YEAR;
