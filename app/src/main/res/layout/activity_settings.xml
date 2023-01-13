@@ -6,6 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".Settings">
 
+    <Button
+        android:id="@+id/btn_reset_data_month"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Apagar os registros de consumo (MONTH)"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.531" />
+
     <TextView
         android:id="@+id/textView17"
         android:layout_width="wrap_content"
@@ -32,4 +44,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.218" />
+
+    <Button
+        android:id="@+id/btn_reset_data_days"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Apagar os registros de consumo (DIA)"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.382" />
 </androidx.constraintlayout.widget.ConstraintLayout>
