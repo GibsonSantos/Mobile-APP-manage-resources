@@ -113,7 +113,6 @@ public class SpedingGoal extends AppCompatActivity {
 
     public void loadGoals(){
         gAdapter.open();
-        System.out.println(StringMonth);
         Cursor cursor = gAdapter.verifyIfAlreadyInsertMonthGoal(StringMonth);
         if(cursor.getCount()!=0){
             alreadyGols = true;

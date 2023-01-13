@@ -21,4 +21,11 @@ public class MenuDataView extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), ListDaysSpending.class);
         startActivityForResult(intent, reqCode);
     }
+
+    public void btnStatisticsMonth(View view){
+        // creates the explicit intent
+        Intent intent = new Intent(getApplicationContext(), monthStatisticsView.class);
+        startActivityForResult(intent, reqCode);
+    }
+
 }

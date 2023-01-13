@@ -145,6 +145,18 @@ public class appDBAdapter {
         return numberOfRowsAffected;
     }
 
+    //verifica se ja foram inseridas metas para o mes
+    public Cursor getAllSpedingMonth(String month){
+        String[] selectionArgs = {month};
+        return db.query(DB_TABLE_DAYS,  // table
+                new String[] {"COUNT(*) ", "SUM(d_water) as d_water", "SUM(d_gas) as d_gas","SUM(d_light) as d_light"},           // columns
+                "m_mount = ?", // selection
+                selectionArgs,  // selectionArgs
+                null,           // groupBy
+                null,           // having
+                null);          // orderBy
+    }
+
     public void clearDataMount(){
         db.execSQL("delete from "+ DB_TABLE_DAYS);
     }
