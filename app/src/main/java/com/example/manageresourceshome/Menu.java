@@ -40,4 +40,10 @@ public class Menu extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), Settings.class);
         startActivityForResult(intent, reqCode);
     }
+
+    public void btnAboutAPP(View view){
+        // creates the explicit intent
+        Intent intent = new Intent(getApplicationContext(), AboutAPP.class);
+        startActivityForResult(intent, reqCode);
+    }
 }
