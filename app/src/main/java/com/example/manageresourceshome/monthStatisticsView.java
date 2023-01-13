@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -24,13 +25,19 @@ public class monthStatisticsView extends AppCompatActivity {
     private TextView averageWater;
     private TextView averageGas;
     private TextView averageEnergy;
-    private TextView goalWater;
-    private TextView goalGas;
-    private TextView goalEnergy;
+    private TextView textGoalWater;
+    private TextView textGoalGas;
+    private TextView textGoalEnergy;
     private Float sumSpentWater;
     private Float sumSpentGas;
     private Float sumSpentEnergy;
+    private Float goalWater;
+    private Float goalGas;
+    private Float goalEnergy;
     private int countSpentDays;
+    private TextView text_expectation_water;
+    private TextView text_expectation_gas;
+    private TextView text_expectation_energy;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,10 +54,12 @@ public class monthStatisticsView extends AppCompatActivity {
         averageWater = (TextView) findViewById(R.id.text_average_water);
         averageGas = (TextView) findViewById(R.id.text_average_gas);
         averageEnergy = (TextView) findViewById(R.id.text_average_energy);
-        goalWater = (TextView) findViewById(R.id.text_water_goal);
-        goalGas = (TextView) findViewById(R.id.text_gas_goal);
-        goalEnergy = (TextView) findViewById(R.id.text_energy_goal);
-
+        textGoalWater = (TextView) findViewById(R.id.text_water_goal);
+        textGoalGas = (TextView) findViewById(R.id.text_gas_goal);
+        textGoalEnergy = (TextView) findViewById(R.id.text_energy_goal);
+        text_expectation_water = (TextView) findViewById(R.id.text_expectation_water);
+        text_expectation_gas = (TextView) findViewById(R.id.text_expectation_gas);
+        text_expectation_energy = (TextView) findViewById(R.id.text_expectation_energy);
 
 
         Calendar c = Calendar.getInstance();
@@ -64,7 +73,7 @@ public class monthStatisticsView extends AppCompatActivity {
         getAllSpeding();
         updateAverage();
         getAllGoals();
-
+        updateExpected();
     }
 
     public void getAllSpeding(){
@@ -109,9 +118,13 @@ public class monthStatisticsView extends AppCompatActivity {
         Cursor cursor = gAdapter.verifyIfAlreadyInsertMonthGoal(StringMonth);
         if(cursor.getCount()!=0){
             cursor.moveToFirst();
-            goalWater.setText(cursor.getString(2));
-            goalGas.setText(cursor.getString(4));
-            goalEnergy.setText(cursor.getString(6));
+            goalWater = Float.parseFloat(cursor.getString(2));
+            goalGas = Float.parseFloat(cursor.getString(4));
+            goalEnergy = Float.parseFloat(cursor.getString(6));
+
+            textGoalWater.setText(cursor.getString(2));
+            textGoalGas.setText(cursor.getString(4));
+            textGoalEnergy.setText(cursor.getString(6));
         }else{
             builder.setMessage("Ainda não existe metas inseridas para o mês atual!")
                     .setCancelable(false)
@@ -126,5 +139,29 @@ public class monthStatisticsView extends AppCompatActivity {
             alert.show();
         }
         gAdapter.close();
+    }
+
+    public void updateExpected(){
+        if(goalWater<sumSpentWater){
+            text_expectation_water.setText("ACIMA");
+            text_expectation_water.setTextColor(Color.RED);
+        }else{
+            text_expectation_water.setText("ABAIXO");
+            text_expectation_water.setTextColor(Color.GREEN);
+        }
+        if(goalGas<sumSpentGas){
+            text_expectation_gas.setText("ACIMA");
+            text_expectation_gas.setTextColor(Color.RED);
+        }else{
+            text_expectation_gas.setText("ABAIXO");
+            text_expectation_gas.setTextColor(Color.GREEN);
+        }
+        if(goalEnergy<sumSpentEnergy){
+            text_expectation_energy.setText("ACIMA");
+            text_expectation_energy.setTextColor(Color.RED);
+        }else{
+            text_expectation_energy.setText("ABAIXO");
+            text_expectation_energy.setTextColor(Color.GREEN);
+        }
     }
 }
