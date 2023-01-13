@@ -17,9 +17,10 @@ public class monthStatisticsView extends AppCompatActivity {
     private AlertDialog.Builder builder;
     private TextView month;
     private String StringMonth;
-    private TextView allSpendWater;
-    private TextView allSpendGas;
-    private TextView allSpendEnergy;
+    private TextView allSpentWater;
+    private TextView allSpentGas;
+    private TextView allSpentEnergy;
+    private TextView titleDays;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,9 +30,10 @@ public class monthStatisticsView extends AppCompatActivity {
         gAdapter = new appDBAdapter(this);
         builder = new AlertDialog.Builder(this);
 
-        allSpendEnergy = findViewById(R.id.text_spend_energy_statistics);
-        allSpendWater = findViewById(R.id.text_spend_water_statistics);
-        allSpendGas = findViewById(R.id.text_spend_gas_statistics);
+        allSpentEnergy = findViewById(R.id.text_spend_energy_statistics);
+        allSpentWater = findViewById(R.id.text_spend_water_statistics);
+        allSpentGas = findViewById(R.id.text_spend_gas_statistics);
+        titleDays = findViewById(R.id.text_days_consumidos);
 
         Calendar c = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("MMMM", new Locale("pt", "BR"));
@@ -46,13 +48,14 @@ public class monthStatisticsView extends AppCompatActivity {
 
     public void getAllSpeding(){
         gAdapter.open();
-        Cursor cursor = gAdapter.getAllSpedingMonth(StringMonth);
+        Cursor cursor = gAdapter.getAllSpedingMonth();
         if(cursor.getCount()!=0){
 
             cursor.moveToFirst();
-            allSpendEnergy.setText(cursor.getString(2));
-            allSpendGas.setText(cursor.getString(4));
-            allSpendWater.setText(cursor.getString(6));
+            titleDays.setText("Dias consumidos: "+cursor.getString(0));
+            allSpentEnergy.setText(cursor.getString(3));
+            allSpentGas.setText(cursor.getString(2));
+            allSpentWater.setText(cursor.getString(1));
 
         }else{
             builder.setMessage("Ainda não existe consumo inseridos para o mês atual!")

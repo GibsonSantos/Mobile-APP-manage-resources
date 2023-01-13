@@ -50,6 +50,8 @@ public class InsertSpendingCurrentDay extends AppCompatActivity {
         textViewDate.setText(dateString);
 
         builder = new AlertDialog.Builder(this);
+        //essa função verifica se o mês acabou e se iniciou um novo, logo os dados dos dias do mes anterior vao ser apagados
+        updateTable();
 
         btnSalve.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,6 +93,16 @@ public class InsertSpendingCurrentDay extends AppCompatActivity {
         });
 
 
+    }
+
+    public void updateTable(){
+        gAdapter.open();
+        Calendar calendar = Calendar.getInstance();
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        if(day==1){
+            gAdapter.clearDataMount();
+        }
+        gAdapter.close();
     }
 
 
