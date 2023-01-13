@@ -156,7 +156,29 @@ public class appDBAdapter {
                 null);          // orderBy
     }
 
+    // insere o valor consumido para aquele mes
+    public long insertAllDatasMonth(String month, Float allSpentWater, Float allSpentGas,Float allSpentEnergy){
+        ContentValues values = new ContentValues();
+        values.put("m_water_speding", allSpentWater);
+        values.put("m_gas_speding", allSpentGas);
+        values.put("m_light_speding", allSpentEnergy);
 
+        String whereClause = "m_mount = ?";
+        String[] whereArgs = {month};
+
+        int numberOfRowsAffected = db.update(DB_TABLE_MONTHS, values, whereClause, whereArgs);
+        return numberOfRowsAffected;
+    }
+    //busca o ultimo mês
+    public Cursor getLastMonth(){
+        return db.query(DB_TABLE_MONTHS,  // table
+                null,           // columns
+                null, // selection
+                null,  // selectionArgs
+                null,           // groupBy
+                null,           // having
+                null);          // orderBy
+    }
 
     public void clearDataMount(){
         db.execSQL("delete from "+ DB_TABLE_DAYS);

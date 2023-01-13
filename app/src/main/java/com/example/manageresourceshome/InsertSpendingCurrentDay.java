@@ -6,6 +6,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -99,8 +100,20 @@ public class InsertSpendingCurrentDay extends AppCompatActivity {
         gAdapter.open();
         Calendar calendar = Calendar.getInstance();
         int day = calendar.get(Calendar.DAY_OF_MONTH);
+        //int day = 1;
         if(day==1){
-            gAdapter.clearDataMount();
+            //obtem os dados do ultimo mes inserido pelo utilizador
+            Cursor cursor = gAdapter.getLastMonth();
+            if(cursor.getCount()!=0){
+                cursor.moveToLast();
+                Cursor cursorAllSpeding = gAdapter.getAllSpedingMonth();
+                //obtem as estatisticas do ultimo mes
+                if(cursorAllSpeding.getCount()!=0){
+                    cursorAllSpeding.moveToFirst();
+                    gAdapter.insertAllDatasMonth(cursor.getString(0),Float.parseFloat(cursorAllSpeding.getString(1)),Float.parseFloat(cursorAllSpeding.getString(2)),Float.parseFloat(cursorAllSpeding.getString(3)));
+                    gAdapter.clearDataMount();
+                }
+            }
         }
         gAdapter.close();
     }

@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import java.time.LocalDate;
+
 public class Menu extends AppCompatActivity {
 
     private int reqCode = 1; // requestCode
@@ -14,6 +16,11 @@ public class Menu extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+
+        LocalDate now = LocalDate.now(); // 2015-11-24
+        LocalDate earlier = now.minusMonths(1); // 2015-10-24
+
+        System.out.println(earlier.getMonth());
 
     }
 
