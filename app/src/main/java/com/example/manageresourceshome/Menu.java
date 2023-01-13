@@ -29,11 +29,15 @@ public class Menu extends AppCompatActivity {
         startActivityForResult(intent, reqCode);
     }
 
-    
-
     public void btnSpedingGoal(View view){
         // creates the explicit intent
         Intent intent = new Intent(getApplicationContext(), SpedingGoal.class);
+        startActivityForResult(intent, reqCode);
+    }
+
+    public void btnConfAPP(View view){
+        // creates the explicit intent
+        Intent intent = new Intent(getApplicationContext(), Settings.class);
         startActivityForResult(intent, reqCode);
     }
 }
