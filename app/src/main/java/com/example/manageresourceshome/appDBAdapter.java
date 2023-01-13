@@ -156,6 +156,8 @@ public class appDBAdapter {
                 null);          // orderBy
     }
 
+
+
     public void clearDataMount(){
         db.execSQL("delete from "+ DB_TABLE_DAYS);
     }
