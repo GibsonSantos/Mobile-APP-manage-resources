@@ -38,7 +38,7 @@ public class InsertSpending extends AppCompatActivity {
         Date date = Calendar.getInstance().getTime();
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         String dateString = dateFormat.format(date);
-        /*if(gAdapter.verifyIfAlreadyInsertSpending(dateString).getCount()!=0){
+        if(gAdapter.verifyIfAlreadyInsertSpending(dateString).getCount()!=0){
             builder.setMessage("O consumo de hoje já foi inserido! \nSe deseja editar siga para Menu->Visualizar consumo->Consumos diários")
                     .setCancelable(false)
                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -53,9 +53,7 @@ public class InsertSpending extends AppCompatActivity {
         }else{
             Intent intent = new Intent(getApplicationContext(), InsertSpendingCurrentDay.class);
             startActivityForResult(intent, reqCode);
-        }*/
-        Intent intent = new Intent(getApplicationContext(), InsertSpendingCurrentDay.class);
-        startActivityForResult(intent, reqCode);
+        }
         gAdapter.close();
     }
 }
