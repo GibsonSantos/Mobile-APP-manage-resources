@@ -6,11 +6,11 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,7 +19,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class InsertSpendingCurrentDay extends AppCompatActivity {
+public class InsertSpendingOtherDay extends AppCompatActivity {
 
     private appDBAdapter gAdapter;
     private TextView textViewDate;
@@ -28,12 +28,14 @@ public class InsertSpendingCurrentDay extends AppCompatActivity {
     private EditText water;
     private EditText gas;
     private EditText energy;
+    private EditText otherDay;
     private AlertDialog.Builder builder;
+    private NumberPicker numberPicker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_insert_spending_current_day);
+        setContentView(R.layout.activity_insert_spending_other_day);
 
         gAdapter = new appDBAdapter(this);
 
@@ -42,6 +44,8 @@ public class InsertSpendingCurrentDay extends AppCompatActivity {
         water = (EditText) findViewById(R.id.edit_insert_water);
         gas = (EditText) findViewById(R.id.edit_insert_gas);
         energy = (EditText) findViewById(R.id.edit_insert_energy);
+        otherDay = (EditText) findViewById(R.id.edit_insert_day);
+
 
         Date date = Calendar.getInstance().getTime();
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -51,8 +55,6 @@ public class InsertSpendingCurrentDay extends AppCompatActivity {
         textViewDate.setText(dateString);
 
         builder = new AlertDialog.Builder(this);
-        //essa função verifica se o mês acabou e se iniciou um novo, logo os dados dos dias do mes anterior vao ser apagados
-        updateTable();
 
         btnSalve.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,17 +72,35 @@ public class InsertSpendingCurrentDay extends AppCompatActivity {
                     alert.setTitle("ALERTA");
                     alert.show();
                 }else{
-                    gAdapter.open();
-                    long result = gAdapter.insertDaySpending(new DaySpending(dateString,parseFloat(water.getText().toString()), parseFloat(gas.getText().toString()),parseFloat(energy.getText().toString())));
-                    if(result < 0){
-                        Toast.makeText(getApplicationContext(),"Naõ foi possivel guardar os dados",Toast.LENGTH_SHORT).show();
+                    Calendar cal = Calendar.getInstance();
+                    cal.setTime(date);
+                    int currentDay = cal.get(Calendar.DAY_OF_MONTH);
+                    System.out.println(currentDay);
+                    System.out.println(Integer.parseInt(otherDay.getText().toString()));
+                    if(Integer.parseInt(otherDay.getText().toString())>currentDay||Integer.parseInt(otherDay.getText().toString())<1){
+                        builder.setMessage("Dia invalido!")
+                                .setCancelable(false)
+                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                    }
+                                });
+                        //Cria um caixa de dialogo
+                        AlertDialog alert = builder.create();
+                        //Setting the title manually
+                        alert.setTitle("ALERTA");
+                        alert.show();
+                    }else {/*
+                        gAdapter.open();
+                        long result = gAdapter.insertDaySpending(new DaySpending(dateString, parseFloat(water.getText().toString()), parseFloat(gas.getText().toString()), parseFloat(energy.getText().toString())));
+                        if (result < 0) {
+                            Toast.makeText(getApplicationContext(), "Naõ foi possivel guardar os dados", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Dados do jogo guardados!", Toast.LENGTH_SHORT).show();
+                            // end activit
+                            finish();
+                        }
+                        gAdapter.close();*/
                     }
-                    else{
-                        Toast.makeText(getApplicationContext(),"Dados do jogo guardados!",Toast.LENGTH_SHORT).show();
-                        // end activit
-                        finish();
-                    }
-                    gAdapter.close();
 
                 }
             }
@@ -92,31 +112,5 @@ public class InsertSpendingCurrentDay extends AppCompatActivity {
                 finish();
             }
         });
-
-
     }
-
-    public void updateTable(){
-        gAdapter.open();
-        Calendar calendar = Calendar.getInstance();
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
-        //int day = 1;
-        if(day==1){
-            gAdapter.clearDataMount();
-        }
-        //obtem os dados do ultimo mes inserido pelo utilizador
-        Cursor cursor = gAdapter.getLastMonth();
-        if(cursor.getCount()!=0){
-            cursor.moveToLast();
-            Cursor cursorAllSpeding = gAdapter.getAllSpedingMonth();
-            //obtem as estatisticas do ultimo mes
-            if(cursorAllSpeding.getCount()!=0){
-                cursorAllSpeding.moveToFirst();
-                gAdapter.insertAllDatasMonth(cursor.getString(0),Float.parseFloat(cursorAllSpeding.getString(1)),Float.parseFloat(cursorAllSpeding.getString(2)),Float.parseFloat(cursorAllSpeding.getString(3)));
-            }
-        }
-        gAdapter.close();
-    }
-
-
 }

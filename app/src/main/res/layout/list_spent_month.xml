@@ -116,14 +116,14 @@
             android:textSize="16sp"></TextView>
 
         <TextView
-            android:id="@+id/msg_spending_gas234"
+            android:id="@+id/msg_spending_gas_month"
             android:layout_width="102dp"
             android:layout_height="wrap_content"
             android:text="10000"
             android:textAlignment="center" />
 
         <TextView
-            android:id="@+id/textView3223"
+            android:id="@+id/msg_goal_gas_month"
             android:layout_width="20dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -131,7 +131,7 @@
             android:textAlignment="center" />
 
         <TextView
-            android:id="@+id/textView33234"
+            android:id="@+id/msg_result_gas"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -156,14 +156,14 @@
             android:textSize="16sp"></TextView>
 
         <TextView
-            android:id="@+id/msg_spending_gas2342"
+            android:id="@+id/msg_spending_energy_month"
             android:layout_width="102dp"
             android:layout_height="wrap_content"
             android:text="10000"
             android:textAlignment="center" />
 
         <TextView
-            android:id="@+id/textView32324"
+            android:id="@+id/msg_goal_energy_month"
             android:layout_width="20dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -171,7 +171,7 @@
             android:textAlignment="center" />
 
         <TextView
-            android:id="@+id/textView332342"
+            android:id="@+id/msg_result_energy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"

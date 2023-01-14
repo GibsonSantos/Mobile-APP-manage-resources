@@ -102,6 +102,12 @@ public class ListMonthSpending extends AppCompatActivity {
             TextView textWaterSpeding = (TextView) rowView.findViewById(R.id.msg_spending_water_month);
             TextView textWaterGoal = (TextView) rowView.findViewById(R.id.msg_goal_water_month);
             TextView textResultWater = (TextView) rowView.findViewById(R.id.msg_result_water);
+            TextView textGasSpeding = (TextView) rowView.findViewById(R.id.msg_spending_gas_month);
+            TextView textGasGoal = (TextView) rowView.findViewById(R.id.msg_goal_gas_month);
+            TextView textResultGas = (TextView) rowView.findViewById(R.id.msg_result_gas);
+            TextView textEnergySpeding = (TextView) rowView.findViewById(R.id.msg_spending_gas_month);
+            TextView textEnergyGoal = (TextView) rowView.findViewById(R.id.msg_goal_energy_month);
+            TextView textResultEnergy = (TextView) rowView.findViewById(R.id.msg_result_energy);
 
 
             // obtains the contact for this position
@@ -110,6 +116,10 @@ public class ListMonthSpending extends AppCompatActivity {
             date.setText(monthsSpeding.getMonth());
             textWaterSpeding.setText(String.valueOf(monthsSpeding.getWaterSpending()));
             textWaterGoal.setText(String.valueOf(monthsSpeding.getWaterSpendingGoal()));
+            textGasSpeding.setText(String.valueOf(monthsSpeding.getGasSpending()));
+            textGasGoal.setText(String.valueOf(monthsSpeding.getGasSpendingGoal()));
+            textEnergySpeding.setText(String.valueOf(monthsSpeding.getEnergySpending()));
+            textEnergyGoal.setText(String.valueOf(monthsSpeding.getEnergySpendingGoal()));
 
             if(monthsSpeding.getWaterSpending()>monthsSpeding.getWaterSpendingGoal()){
                 textResultWater.setText("ACIMA");
@@ -117,6 +127,20 @@ public class ListMonthSpending extends AppCompatActivity {
             }else{
                 textResultWater.setText("ABAIXO");
                 textResultWater.setTextColor(Color.GREEN);
+            }
+            if(monthsSpeding.getGasSpending()>monthsSpeding.getGasSpendingGoal()){
+                textResultGas.setText("ACIMA");
+                textResultGas.setTextColor(Color.RED);
+            }else{
+                textResultGas.setText("ABAIXO");
+                textResultGas.setTextColor(Color.GREEN);
+            }
+            if(monthsSpeding.getEnergySpending()>monthsSpeding.getEnergySpendingGoal()){
+                textResultEnergy.setText("ACIMA");
+                textResultEnergy.setTextColor(Color.RED);
+            }else{
+                textResultEnergy.setText("ABAIXO");
+                textResultEnergy.setTextColor(Color.GREEN);
             }
 
             // returns the view

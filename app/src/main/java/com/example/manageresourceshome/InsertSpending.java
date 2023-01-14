@@ -56,4 +56,10 @@ public class InsertSpending extends AppCompatActivity {
         }
         gAdapter.close();
     }
+
+    public void btnInsertOtherDay(View view){
+        // creates the explicit intent
+        Intent intent = new Intent(getApplicationContext(), InsertSpendingOtherDay.class);
+        startActivityForResult(intent, reqCode);
+    }
 }
