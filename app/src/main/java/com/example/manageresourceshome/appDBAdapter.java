@@ -169,6 +169,7 @@ public class appDBAdapter {
         int numberOfRowsAffected = db.update(DB_TABLE_MONTHS, values, whereClause, whereArgs);
         return numberOfRowsAffected;
     }
+
     //busca o ultimo mês
     public Cursor getLastMonth(){
         return db.query(DB_TABLE_MONTHS,  // table

@@ -111,9 +111,11 @@ public class InsertSpendingCurrentDay extends AppCompatActivity {
                 if(cursorAllSpeding.getCount()!=0){
                     cursorAllSpeding.moveToFirst();
                     gAdapter.insertAllDatasMonth(cursor.getString(0),Float.parseFloat(cursorAllSpeding.getString(1)),Float.parseFloat(cursorAllSpeding.getString(2)),Float.parseFloat(cursorAllSpeding.getString(3)));
-                    gAdapter.clearDataMount();
                 }
+            }else{
+
             }
+            gAdapter.clearDataMount();
         }
         gAdapter.close();
     }
