@@ -34,10 +34,22 @@ public class monthStatisticsView extends AppCompatActivity {
     private Float goalWater;
     private Float goalGas;
     private Float goalEnergy;
+    private Float floatAverageWater;
+    private Float floatAverageGas;
+    private Float floatAverageEnergy;
+    private Float floatGoalAverageWater;
+    private Float floatGoalAverageGas;
+    private Float floatGoalAverageEnergy;
     private int countSpentDays;
     private TextView text_expectation_water;
     private TextView text_expectation_gas;
     private TextView text_expectation_energy;
+    private TextView text_gas_goal_average;
+    private TextView text_water_goal_average;
+    private TextView text_energy_goal_average;
+    private TextView text_expectation_water_average;
+    private TextView text_expectation_gas_average;
+    private TextView text_expectation_energy_average;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +72,12 @@ public class monthStatisticsView extends AppCompatActivity {
         text_expectation_water = (TextView) findViewById(R.id.text_expectation_water);
         text_expectation_gas = (TextView) findViewById(R.id.text_expectation_gas);
         text_expectation_energy = (TextView) findViewById(R.id.text_expectation_energy);
+        text_water_goal_average = (TextView) findViewById(R.id.text_water_goal_average);
+        text_gas_goal_average = (TextView) findViewById(R.id.text_gas_goal_average);
+        text_energy_goal_average = (TextView) findViewById(R.id.text_energy_goal_average);
+        text_expectation_water_average = (TextView) findViewById(R.id.text_expectation_water_average);
+        text_expectation_gas_average = (TextView) findViewById(R.id.text_expectation_gas_average);
+        text_expectation_energy_average = (TextView) findViewById(R.id.text_expectation_energy_average);
 
 
         Calendar c = Calendar.getInstance();
@@ -74,6 +92,8 @@ public class monthStatisticsView extends AppCompatActivity {
         updateAverage();
         getAllGoals();
         updateExpected();
+        insertGoalAverage();
+        updateExpectedAverage();
     }
 
     public void getAllSpeding(){
@@ -107,11 +127,6 @@ public class monthStatisticsView extends AppCompatActivity {
         gAdapter.close();
     }
 
-    public void updateAverage(){
-        averageWater.setText(""+sumSpentWater/countSpentDays);
-        averageGas.setText(""+sumSpentGas/countSpentDays);
-        averageEnergy.setText(""+sumSpentEnergy/countSpentDays);
-    }
     //recebe e escreve todas as metas presentas na base de dados
     public void getAllGoals(){
         gAdapter.open();
@@ -162,6 +177,53 @@ public class monthStatisticsView extends AppCompatActivity {
         }else{
             text_expectation_energy.setText("ABAIXO");
             text_expectation_energy.setTextColor(Color.GREEN);
+        }
+    }
+    //atualiza a media consumida por dia do utilizador
+    public void updateAverage(){
+        floatAverageWater = sumSpentWater/countSpentDays;
+        floatAverageGas = sumSpentGas/countSpentDays;
+        floatAverageEnergy = sumSpentEnergy/countSpentDays;
+        averageWater.setText(""+String.format("%.2f", floatAverageWater));
+        averageGas.setText(""+String.format("%.2f", floatAverageGas));
+        averageEnergy.setText(""+String.format("%.2f", floatAverageEnergy));
+    }
+
+    //inseri a media indicada de consumo
+    public void insertGoalAverage(){
+        Calendar cal = Calendar.getInstance();
+        int maxDays = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+        floatGoalAverageWater = goalWater/maxDays;
+        floatGoalAverageGas = goalGas/maxDays;
+        floatGoalAverageEnergy = goalEnergy/maxDays;
+
+        text_water_goal_average.setText(""+String.format("%.2f", floatGoalAverageWater));
+        text_gas_goal_average.setText(""+String.format("%.2f", floatGoalAverageGas));
+        text_energy_goal_average.setText(""+String.format("%.2f", floatGoalAverageEnergy));
+        System.out.println(maxDays);
+    }
+    //atualiza o esperado analizando a media consumida pelo utilizador
+    public void updateExpectedAverage(){
+        if(floatGoalAverageWater<floatAverageWater){
+            text_expectation_water_average.setText("ACIMA");
+            text_expectation_water_average.setTextColor(Color.RED);
+        }else{
+            text_expectation_water_average.setText("ABAIXO");
+            text_expectation_water_average.setTextColor(Color.GREEN);
+        }
+        if(floatGoalAverageGas<floatAverageGas){
+            text_expectation_gas_average.setText("ACIMA");
+            text_expectation_gas_average.setTextColor(Color.RED);
+        }else{
+            text_expectation_gas_average.setText("ABAIXO");
+            text_expectation_gas_average.setTextColor(Color.GREEN);
+        }
+        if(floatGoalAverageEnergy<floatAverageEnergy){
+            text_expectation_energy_average.setText("ACIMA");
+            text_expectation_energy_average.setTextColor(Color.RED);
+        }else{
+            text_expectation_energy_average.setText("ABAIXO");
+            text_expectation_energy_average.setTextColor(Color.GREEN);
         }
     }
 }

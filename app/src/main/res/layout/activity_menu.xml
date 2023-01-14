@@ -33,42 +33,29 @@
         app:layout_constraintVertical_bias="0.197" />
 
     <Button
-        android:id="@+id/btn_tutorial"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TUTORIAL"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.591" />
-
-    <Button
         android:id="@+id/bnt_credits"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Créditos"
         android:onClick="btnAboutAPP"
+        android:text="Créditos"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.859" />
+        app:layout_constraintVertical_bias="0.764" />
 
     <Button
         android:id="@+id/btn_settings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Configurações"
         android:onClick="btnConfAPP"
+        android:text="Configurações"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.47"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.73" />
+        app:layout_constraintVertical_bias="0.617" />
 
     <Button
         android:id="@+id/btn_speding_goal"
