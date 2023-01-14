@@ -75,6 +75,12 @@ public class Settings extends AppCompatActivity {
                         .setPositiveButton("SIM", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 gAdapter.open();
+                                gAdapter.open();
+                                gAdapter.clearDataMount();
+                                Calendar c = Calendar.getInstance();
+                                SimpleDateFormat sdf = new SimpleDateFormat("MMMM", new Locale("pt", "BR"));
+                                String StringMonth = sdf.format(c.getTime());
+                                gAdapter.clearMonthSpeding(StringMonth);
                                 gAdapter.clearDataYear();
                                 gAdapter.close();
                                 Toast.makeText(getApplicationContext(),"Dados apagados!",

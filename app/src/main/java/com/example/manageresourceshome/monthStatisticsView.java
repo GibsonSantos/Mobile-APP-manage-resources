@@ -91,9 +91,6 @@ public class monthStatisticsView extends AppCompatActivity {
         getAllSpeding();
         updateAverage();
         getAllGoals();
-        updateExpected();
-        insertGoalAverage();
-        updateExpectedAverage();
     }
 
     public void getAllSpeding(){
@@ -142,6 +139,9 @@ public class monthStatisticsView extends AppCompatActivity {
             textGoalWater.setText(cursor.getString(2));
             textGoalGas.setText(cursor.getString(4));
             textGoalEnergy.setText(cursor.getString(6));
+            updateExpected();
+            insertGoalAverage();
+            updateExpectedAverage();
         }else{
             builder.setMessage("Ainda não existe metas inseridas para o mês atual!")
                     .setCancelable(false)
