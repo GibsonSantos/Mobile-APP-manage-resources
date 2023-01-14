@@ -193,6 +193,21 @@ public class appDBAdapter {
                 null);          // orderBy
     }
 
+    public int updateDaySpeding(DaySpending aDaySpending){
+        ContentValues vals = new ContentValues();
+        vals.put("d_dia", aDaySpending.getDate());
+        vals.put("d_water", aDaySpending.getSpedingWater());
+        vals.put("d_gas", aDaySpending.getSpedingGas());
+        vals.put("d_light", aDaySpending.getSpedingEnergy());
+
+        String whereClause = "d_dia = ?";
+        String[] whereArgs = {aDaySpending.getDate()};
+
+        int numberOfRowsAffected = db.update(DB_TABLE_DAYS, vals, whereClause, whereArgs);
+        return numberOfRowsAffected;
+    }
+
+
     public void clearDataMount(){
         db.execSQL("delete from "+ DB_TABLE_DAYS);
     }

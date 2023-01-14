@@ -2,6 +2,7 @@ package com.example.manageresourceshome;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.widget.ListAdapter;
@@ -25,6 +26,7 @@ public class ListDaysSpending extends AppCompatActivity {
     private appDBAdapter gAdapter;
     Vector<DaySpending> VectorDaySpeding;
     ListView contactsListView;
+    private int reqCode = 1; // requestCode
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +36,7 @@ public class ListDaysSpending extends AppCompatActivity {
         gAdapter = new appDBAdapter(this);
 
         displayGames();
+        loadContacts();
     }
 
 
@@ -121,10 +124,20 @@ public class ListDaysSpending extends AppCompatActivity {
             btnEdit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    gAdapter.open();
-                    gAdapter.close();
-                    loadContacts();
-                    displayGames();
+                    // criando um novo intent
+                    Intent i = new Intent(getApplicationContext(), EditSpedingDay.class);
+
+                    // adicionando um bundle com os dados do jogo ao intent
+                    Bundle b = new Bundle();
+                    b.putString("daySpeding", daySpending.getDate());
+                    b.putString("spedingWater", String.valueOf(daySpending.getSpedingWater()));
+                    b.putString("spedingGas", String.valueOf(daySpending.getSpedingGas()));
+                    b.putString("spedingEnergy", String.valueOf(daySpending.getSpedingEnergy()));
+                    i.putExtras(b);
+
+                    // esperando por um retorno da página edit game
+                    startActivityForResult(i, reqCode);
+                    finish();
                 }
             });
 

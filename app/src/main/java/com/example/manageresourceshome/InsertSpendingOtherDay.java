@@ -117,6 +117,7 @@ public class InsertSpendingOtherDay extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(), "Não foi possivel guardar os dados", Toast.LENGTH_SHORT).show();
                             } else {
                                 Toast.makeText(getApplicationContext(), "Dados do jogo guardados!", Toast.LENGTH_SHORT).show();
+                                updateTableMonth();
                                 // end activit
                                 finish();
                             }
@@ -134,5 +135,21 @@ public class InsertSpendingOtherDay extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    public void updateTableMonth(){
+        gAdapter.open();
+        //obtem os dados do ultimo mes inserido pelo utilizador
+        Cursor cursor = gAdapter.getLastMonth();
+        if(cursor.getCount()!=0){
+            cursor.moveToLast();
+            Cursor cursorAllSpeding = gAdapter.getAllSpedingMonth();
+            //obtem as estatisticas do ultimo mes
+            if(cursorAllSpeding.getCount()!=0){
+                cursorAllSpeding.moveToFirst();
+                gAdapter.insertAllDatasMonth(cursor.getString(0),Float.parseFloat(cursorAllSpeding.getString(1)),Float.parseFloat(cursorAllSpeding.getString(2)),Float.parseFloat(cursorAllSpeding.getString(3)));
+            }
+        }
+        gAdapter.close();
     }
 }
