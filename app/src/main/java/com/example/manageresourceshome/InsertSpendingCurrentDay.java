@@ -77,6 +77,7 @@ public class InsertSpendingCurrentDay extends AppCompatActivity {
                     }
                     else{
                         Toast.makeText(getApplicationContext(),"Dados do jogo guardados!",Toast.LENGTH_SHORT).show();
+                        updateTable();
                         // end activit
                         finish();
                     }
@@ -109,9 +110,9 @@ public class InsertSpendingCurrentDay extends AppCompatActivity {
         if(cursor.getCount()!=0){
             cursor.moveToLast();
             Cursor cursorAllSpeding = gAdapter.getAllSpedingMonth();
+            cursorAllSpeding.moveToFirst();
             //obtem as estatisticas do ultimo mes
-            if(cursorAllSpeding.getCount()!=0){
-                cursorAllSpeding.moveToFirst();
+            if(!cursorAllSpeding.getString(0).equalsIgnoreCase("0")){
                 gAdapter.insertAllDatasMonth(cursor.getString(0),Float.parseFloat(cursorAllSpeding.getString(1)),Float.parseFloat(cursorAllSpeding.getString(2)),Float.parseFloat(cursorAllSpeding.getString(3)));
             }
         }

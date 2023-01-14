@@ -74,9 +74,9 @@ public class appDBAdapter {
     public long insertDaySpending(DaySpending aDaySpending){
         ContentValues vals = new ContentValues();
         vals.put("d_dia", aDaySpending.getDate());
-        vals.put("d_water", aDaySpending.getSpedingEnergy());
+        vals.put("d_water", aDaySpending.getSpedingWater());
         vals.put("d_gas", aDaySpending.getSpedingGas());
-        vals.put("d_light", aDaySpending.getSpedingWater());
+        vals.put("d_light", aDaySpending.getSpedingEnergy());
 
         return db.insert(DB_TABLE_DAYS,  // table
                 null,           // null when some value is provided (nullColumnHack)
@@ -162,6 +162,20 @@ public class appDBAdapter {
         values.put("m_water_speding", allSpentWater);
         values.put("m_gas_speding", allSpentGas);
         values.put("m_light_speding", allSpentEnergy);
+
+        String whereClause = "m_mount = ?";
+        String[] whereArgs = {month};
+
+        int numberOfRowsAffected = db.update(DB_TABLE_MONTHS, values, whereClause, whereArgs);
+        return numberOfRowsAffected;
+    }
+
+
+    public long clearMonthSpeding(String month){
+        ContentValues values = new ContentValues();
+        values.put("m_water_speding", 0);
+        values.put("m_gas_speding", 0);
+        values.put("m_light_speding", 0);
 
         String whereClause = "m_mount = ?";
         String[] whereArgs = {month};

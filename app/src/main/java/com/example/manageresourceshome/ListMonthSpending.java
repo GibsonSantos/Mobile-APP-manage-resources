@@ -105,7 +105,7 @@ public class ListMonthSpending extends AppCompatActivity {
             TextView textGasSpeding = (TextView) rowView.findViewById(R.id.msg_spending_gas_month);
             TextView textGasGoal = (TextView) rowView.findViewById(R.id.msg_goal_gas_month);
             TextView textResultGas = (TextView) rowView.findViewById(R.id.msg_result_gas);
-            TextView textEnergySpeding = (TextView) rowView.findViewById(R.id.msg_spending_gas_month);
+            TextView textEnergySpeding = (TextView) rowView.findViewById(R.id.msg_spending_energy_month);
             TextView textEnergyGoal = (TextView) rowView.findViewById(R.id.msg_goal_energy_month);
             TextView textResultEnergy = (TextView) rowView.findViewById(R.id.msg_result_energy);
 

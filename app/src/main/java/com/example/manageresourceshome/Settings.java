@@ -10,6 +10,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
+
 public class Settings extends AppCompatActivity {
 
     private int reqCode = 1; // requestCode
@@ -39,6 +43,10 @@ public class Settings extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int id) {
                                 gAdapter.open();
                                 gAdapter.clearDataMount();
+                                Calendar c = Calendar.getInstance();
+                                SimpleDateFormat sdf = new SimpleDateFormat("MMMM", new Locale("pt", "BR"));
+                                String StringMonth = sdf.format(c.getTime());
+                                gAdapter.clearMonthSpeding(StringMonth);
                                 gAdapter.close();
                                 Toast.makeText(getApplicationContext(),"Dados apagados!",
                                         Toast.LENGTH_SHORT).show();

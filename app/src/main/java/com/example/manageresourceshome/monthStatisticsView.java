@@ -28,18 +28,18 @@ public class monthStatisticsView extends AppCompatActivity {
     private TextView textGoalWater;
     private TextView textGoalGas;
     private TextView textGoalEnergy;
-    private Float sumSpentWater;
-    private Float sumSpentGas;
-    private Float sumSpentEnergy;
+    private Float sumSpentWater =  0f;
+    private Float sumSpentGas =  0f;
+    private Float sumSpentEnergy =  0f;
     private Float goalWater;
     private Float goalGas;
     private Float goalEnergy;
-    private Float floatAverageWater;
-    private Float floatAverageGas;
-    private Float floatAverageEnergy;
-    private Float floatGoalAverageWater;
-    private Float floatGoalAverageGas;
-    private Float floatGoalAverageEnergy;
+    private Float floatAverageWater = 0f;
+    private Float floatAverageGas = 0f ;
+    private Float floatAverageEnergy =0f;
+    private Float floatGoalAverageWater = 0f;
+    private Float floatGoalAverageGas =0f;
+    private Float floatGoalAverageEnergy=0f;
     private int countSpentDays;
     private TextView text_expectation_water;
     private TextView text_expectation_gas;
@@ -98,8 +98,10 @@ public class monthStatisticsView extends AppCompatActivity {
 
     public void getAllSpeding(){
         gAdapter.open();
+
         Cursor cursor = gAdapter.getAllSpedingMonth();
-        if(cursor.getCount()!=0){
+        cursor.moveToFirst();
+        if(!cursor.getString(0).equalsIgnoreCase("0")){
 
             cursor.moveToFirst();
             titleDays.setText("Dias consumidos: "+cursor.getString(0));
@@ -181,12 +183,14 @@ public class monthStatisticsView extends AppCompatActivity {
     }
     //atualiza a media consumida por dia do utilizador
     public void updateAverage(){
-        floatAverageWater = sumSpentWater/countSpentDays;
-        floatAverageGas = sumSpentGas/countSpentDays;
-        floatAverageEnergy = sumSpentEnergy/countSpentDays;
-        averageWater.setText(""+String.format("%.2f", floatAverageWater));
-        averageGas.setText(""+String.format("%.2f", floatAverageGas));
-        averageEnergy.setText(""+String.format("%.2f", floatAverageEnergy));
+        if(countSpentDays!=0) {
+            floatAverageWater = sumSpentWater / countSpentDays;
+            floatAverageGas = sumSpentGas / countSpentDays;
+            floatAverageEnergy = sumSpentEnergy / countSpentDays;
+            averageWater.setText("" + String.format("%.2f", floatAverageWater));
+            averageGas.setText("" + String.format("%.2f", floatAverageGas));
+            averageEnergy.setText("" + String.format("%.2f", floatAverageEnergy));
+        }
     }
 
     //inseri a media indicada de consumo
@@ -200,7 +204,6 @@ public class monthStatisticsView extends AppCompatActivity {
         text_water_goal_average.setText(""+String.format("%.2f", floatGoalAverageWater));
         text_gas_goal_average.setText(""+String.format("%.2f", floatGoalAverageGas));
         text_energy_goal_average.setText(""+String.format("%.2f", floatGoalAverageEnergy));
-        System.out.println(maxDays);
     }
     //atualiza o esperado analizando a media consumida pelo utilizador
     public void updateExpectedAverage(){
