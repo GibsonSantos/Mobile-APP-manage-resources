@@ -6,6 +6,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -59,7 +60,7 @@ public class InsertSpendingOtherDay extends AppCompatActivity {
         btnSalve.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(water.getText().toString().length()==0 || gas.getText().toString().length()==0 || energy.getText().toString().length()==0 ){
+                if(water.getText().toString().length()==0 || gas.getText().toString().length()==0 || energy.getText().toString().length()==0 || otherDay.getText().toString().length()==0){
                     builder.setMessage("NÃO PODEM EXISTIR CAMPOS VAZIOS!")
                             .setCancelable(false)
                             .setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -75,9 +76,8 @@ public class InsertSpendingOtherDay extends AppCompatActivity {
                     Calendar cal = Calendar.getInstance();
                     cal.setTime(date);
                     int currentDay = cal.get(Calendar.DAY_OF_MONTH);
-                    System.out.println(currentDay);
-                    System.out.println(Integer.parseInt(otherDay.getText().toString()));
-                    if(Integer.parseInt(otherDay.getText().toString())>currentDay||Integer.parseInt(otherDay.getText().toString())<1){
+                    int daySelect = Integer.parseInt(otherDay.getText().toString());//armazena o dia selecionado pelo utilizador
+                    if(daySelect>currentDay||daySelect<1){
                         builder.setMessage("Dia invalido!")
                                 .setCancelable(false)
                                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -89,17 +89,39 @@ public class InsertSpendingOtherDay extends AppCompatActivity {
                         //Setting the title manually
                         alert.setTitle("ALERTA");
                         alert.show();
-                    }else {/*
+                    }else {
+                        int year = Calendar.getInstance().get(Calendar.YEAR);
+                        int month = Calendar.getInstance().get(Calendar.MONTH);
+                        cal.set(Calendar.YEAR, year);
+                        cal.set(Calendar.MONTH, month);
+                        cal.set(Calendar.DAY_OF_MONTH, daySelect);
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                        String dateString = dateFormat.format(cal.getTime());
                         gAdapter.open();
-                        long result = gAdapter.insertDaySpending(new DaySpending(dateString, parseFloat(water.getText().toString()), parseFloat(gas.getText().toString()), parseFloat(energy.getText().toString())));
-                        if (result < 0) {
-                            Toast.makeText(getApplicationContext(), "Naõ foi possivel guardar os dados", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(getApplicationContext(), "Dados do jogo guardados!", Toast.LENGTH_SHORT).show();
-                            // end activit
-                            finish();
+                        Cursor curRes = gAdapter.verifyIfAlreadyInsertDaySpeding(dateString);
+                        if(curRes.getCount()!=0){
+                            builder.setMessage("Está data já tem o seu consumo inserido! Você pode alteralo vizualizando os consumos diários!")
+                                    .setCancelable(false)
+                                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                        }
+                                    });
+                            //Cria um caixa de dialogo
+                            AlertDialog alert = builder.create();
+                            //Setting the title manually
+                            alert.setTitle("ALERTA");
+                            alert.show();
+                        }else{
+                            long result = gAdapter.insertDaySpending(new DaySpending(dateString, parseFloat(water.getText().toString()), parseFloat(gas.getText().toString()), parseFloat(energy.getText().toString())));
+                            if (result < 0) {
+                                Toast.makeText(getApplicationContext(), "Não foi possivel guardar os dados", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(getApplicationContext(), "Dados do jogo guardados!", Toast.LENGTH_SHORT).show();
+                                // end activit
+                                finish();
+                            }
                         }
-                        gAdapter.close();*/
+                        gAdapter.close();
                     }
 
                 }

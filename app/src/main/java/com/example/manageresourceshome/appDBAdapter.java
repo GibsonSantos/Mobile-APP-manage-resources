@@ -181,6 +181,18 @@ public class appDBAdapter {
                 null);          // orderBy
     }
 
+    public Cursor verifyIfAlreadyInsertDaySpeding(String day){
+        System.out.println(day);
+        String[] selectionArgs = {day};
+        return db.query(DB_TABLE_DAYS,  // table
+                null,           // columns
+                "d_dia = ?", // selection
+                selectionArgs,  // selectionArgs
+                null,           // groupBy
+                null,           // having
+                null);          // orderBy
+    }
+
     public void clearDataMount(){
         db.execSQL("delete from "+ DB_TABLE_DAYS);
     }
