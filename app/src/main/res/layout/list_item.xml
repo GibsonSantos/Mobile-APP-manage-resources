@@ -62,7 +62,7 @@
             android:textSize="16sp"></TextView>
 
         <TextView
-            android:id="@+id/msg_spending_gas"
+            android:id="@+id/msg_spending_water_month"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:text="0" />

@@ -28,4 +28,10 @@ public class MenuDataView extends AppCompatActivity {
         startActivityForResult(intent, reqCode);
     }
 
+    public void btnListSpentMonths(View view){
+        // creates the explicit intent
+        Intent intent = new Intent(getApplicationContext(), ListMonthSpending.class);
+        startActivityForResult(intent, reqCode);
+    }
+
 }

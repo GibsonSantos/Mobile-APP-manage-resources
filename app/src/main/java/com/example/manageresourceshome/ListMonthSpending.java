@@ -40,7 +40,7 @@ public class ListMonthSpending extends AppCompatActivity {
         loadContacts();  // carrega os jogos presemtes
 
         // define o list adaptar
-        ListAdapter adapter = new ListDaysSpending.ContactAdapter(this, VectorMonthSpeding);
+        ListAdapter adapter = new ListMonthSpending.ContactAdapter(this, VectorMonthSpeding);
         contactsListView = (ListView) findViewById(R.id.contacts_lv);
         contactsListView.setAdapter(adapter);
 
@@ -52,18 +52,19 @@ public class ListMonthSpending extends AppCompatActivity {
     public void loadContacts() {
         VectorMonthSpeding = new Vector<>();
         gAdapter.open();
-        Cursor curRes = gAdapter.getAllDaysSepending();
+        Cursor curRes = gAdapter.getLastMonth();
         if(curRes!=null){
             if(curRes.getCount()==0){
                 Toast.makeText(this, "Não existem dias em que foram registrados o cosumo!", Toast.LENGTH_SHORT).show();
                 return;
             }
-            StringBuilder sb = new StringBuilder();
 
             curRes.moveToFirst();
             while(!curRes.isAfterLast()){
-                DaySpending daySpending = new DaySpending(curRes.getString(0),curRes.getFloat(1),curRes.getFloat(2),curRes.getFloat(3));
-                VectorMonthSpeding.add(0,daySpending);
+                MonthsSpeding monthsSpeding = new MonthsSpeding(curRes.getString(0),curRes.getFloat(1),curRes.getFloat(2),curRes.getFloat(3),
+                        curRes.getFloat(4),curRes.getFloat(5),curRes.getFloat(6));
+
+                VectorMonthSpeding.add(0,monthsSpeding);
                 curRes.moveToNext();
             }
         }
@@ -74,10 +75,10 @@ public class ListMonthSpending extends AppCompatActivity {
     // This is the adapter. BaseAdapter is abstract. Some methods must be implemented.
     class ContactAdapter extends BaseAdapter {
         Context context;
-        List<DaySpending> adaptMonth;
+        List<MonthsSpeding> adaptMonth;
 
         // The constructor receives a context and the data
-        public ContactAdapter(Context ctx, List<DaySpending> list) {
+        public ContactAdapter(Context ctx, List<MonthsSpeding> list) {
             context = ctx;
             adaptMonth = list;
         }
@@ -92,38 +93,31 @@ public class ListMonthSpending extends AppCompatActivity {
             // we only need to create the view if it does not exist
             if (rowView == null) {
                 LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                rowView = inflater.inflate(R.layout.list_item, parent, false);
+                rowView = inflater.inflate(R.layout.list_spent_month, parent, false);
             }
 
             // These are the Views inside the ListView item
 
             TextView date = (TextView) rowView.findViewById(R.id.msg_date);
-            TextView textWater = (TextView) rowView.findViewById(R.id.msg_spending_water);
-            TextView textGas = (TextView) rowView.findViewById(R.id.msg_spending_gas);
-            TextView textEnery = (TextView) rowView.findViewById(R.id.msg_spending_energy);
-            Button btnEdit = (Button) rowView.findViewById(R.id.btn_edit);
-            btnEdit.setBackgroundColor(Color.YELLOW);
-            btnEdit.setTextColor(Color.BLACK);
+            TextView textWaterSpeding = (TextView) rowView.findViewById(R.id.msg_spending_water_month);
+            TextView textWaterGoal = (TextView) rowView.findViewById(R.id.msg_goal_water_month);
+            TextView textResultWater = (TextView) rowView.findViewById(R.id.msg_result_water);
 
 
             // obtains the contact for this position
-            DaySpending daySpending = adaptMonth.get(position);
+            MonthsSpeding monthsSpeding = adaptMonth.get(position);
 
-            textWater.setText(String.valueOf(daySpending.getSpedingWater()));
-            textGas.setText(String.valueOf(daySpending.getSpedingGas()));
-            textEnery.setText(String.valueOf(daySpending.getSpedingEnergy()));
-            date.setText(daySpending.getDate());
+            date.setText(monthsSpeding.getMonth());
+            textWaterSpeding.setText(String.valueOf(monthsSpeding.getWaterSpending()));
+            textWaterGoal.setText(String.valueOf(monthsSpeding.getWaterSpendingGoal()));
 
-
-            btnEdit.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    gAdapter.open();
-                    gAdapter.close();
-                    loadContacts();
-                    displayGames();
-                }
-            });
+            if(monthsSpeding.getWaterSpending()>monthsSpeding.getWaterSpendingGoal()){
+                textResultWater.setText("ACIMA");
+                textResultWater.setTextColor(Color.RED);
+            }else{
+                textResultWater.setText("ABAIXO");
+                textResultWater.setTextColor(Color.GREEN);
+            }
 
             // returns the view
             return rowView;
@@ -144,5 +138,6 @@ public class ListMonthSpending extends AppCompatActivity {
         public long getItemId(int position) {
             return position;
         }
+    }
 
 }

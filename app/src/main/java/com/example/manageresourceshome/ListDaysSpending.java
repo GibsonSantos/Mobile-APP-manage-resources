@@ -16,7 +16,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -103,7 +102,7 @@ public class ListDaysSpending extends AppCompatActivity {
 
             TextView date = (TextView) rowView.findViewById(R.id.msg_date);
             TextView textWater = (TextView) rowView.findViewById(R.id.msg_spending_water);
-            TextView textGas = (TextView) rowView.findViewById(R.id.msg_spending_gas);
+            TextView textGas = (TextView) rowView.findViewById(R.id.msg_spending_water_month);
             TextView textEnery = (TextView) rowView.findViewById(R.id.msg_spending_energy);
             Button btnEdit = (Button) rowView.findViewById(R.id.btn_edit);
             btnEdit.setBackgroundColor(Color.YELLOW);
