@@ -10,7 +10,7 @@ This application is a household resource management, which allows the user to en
  * Make the app responsive
  * Make the data available to see the variation in the household resource throughout the month
 
-## User manual!
+## User manual
 
 
 ## How to install this example Java Mobile App Project 
