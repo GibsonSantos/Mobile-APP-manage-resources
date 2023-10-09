@@ -9,14 +9,14 @@ public class MonthsSpeding {
     private float energySpending;
     private float energySpendingGoal;
 
-    //este construtor é utilizado apenas qunado utilizador deseja inserir/motifigar as metas de gastos
+    //this constructor is only used when the user wants to insert/motivate spending goals
     public MonthsSpeding(String month, float waterSpendingGoal, float gasSpendingGoal,float energySpendingGoal) {
         this.month = month;
         this.waterSpendingGoal = waterSpendingGoal;
         this.gasSpendingGoal = gasSpendingGoal;
         this.energySpendingGoal = energySpendingGoal;
     }
-    //este construtor é utilizado para ler os todos os dados presentes acerca do total de gasto de um mes assim como as metas desse mes
+    //this constructor is used to read all the data present about the total expenditure for a month as well as the goals for that month
     public MonthsSpeding(String month, float waterSpending, float waterSpendingGoal, float gasSpending, float gasSpendingGoal, float energySpending, float energySpendingGoal) {
         this.month = month;
         this.waterSpending = waterSpending;
