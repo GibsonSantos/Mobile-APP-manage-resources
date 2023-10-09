@@ -57,7 +57,7 @@ public class SpedingGoal extends AppCompatActivity {
         month = (TextView) findViewById(R.id.txt_month_speding_goal);
         month.setText(StringMonth);
 
-        //carregas as metas já estipuladas para este mes se estas já existirem
+        //loads the goals already stipulated so that these months already exist
         loadGoals();
 
         btnCancelSpedingGoal.setOnClickListener(new View.OnClickListener() {
@@ -71,7 +71,7 @@ public class SpedingGoal extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(waterSpedingGoal.getText().toString().length()==0 || gasSpedingGoal.getText().toString().length()==0 || energySpedingGoal.getText().toString().length()==0 ){
-                    builder.setMessage("NÃO PODEM EXISTIR CAMPOS VAZIOS!")
+                    builder.setMessage("There cannot be empty fields!")
                             .setCancelable(false)
                             .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
@@ -87,20 +87,20 @@ public class SpedingGoal extends AppCompatActivity {
                     if(alreadyGols){
                         int result = gAdapter.updateGoals(new MonthsSpeding(StringMonth,parseFloat(waterSpedingGoal.getText().toString()),parseFloat(gasSpedingGoal.getText().toString()),parseFloat(energySpedingGoal.getText().toString())));
                         if(result==0){
-                            Toast.makeText(getApplicationContext(),"Não foi possivel guardar os dados",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(),"Unable to save data",Toast.LENGTH_SHORT).show();
                         }
                         else{
-                            Toast.makeText(getApplicationContext(),"Dados do jogo guardados!",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(),"Saved game data!",Toast.LENGTH_SHORT).show();
                             // end activit
                             finish();
                         }
                     }else{
                         long result = gAdapter.insertMonthGoal(new MonthsSpeding(StringMonth,parseFloat(waterSpedingGoal.getText().toString()),parseFloat(gasSpedingGoal.getText().toString()),parseFloat(energySpedingGoal.getText().toString())));
                         if(result < 0){
-                            Toast.makeText(getApplicationContext(),"Não foi possivel guardar os dados",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(),"Unable to salve data",Toast.LENGTH_SHORT).show();
                         }
                         else{
-                            Toast.makeText(getApplicationContext(),"Dados do jogo guardados!",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(),"Saved game data!",Toast.LENGTH_SHORT).show();
                             // end activit
                             finish();
                         }
@@ -116,13 +116,13 @@ public class SpedingGoal extends AppCompatActivity {
         Cursor cursor = gAdapter.verifyIfAlreadyInsertMonthGoal(StringMonth);
         if(cursor.getCount()!=0){
             alreadyGols = true;
-            builder.setMessage("JÁ EXISTEM METAS ESTIPULADAS PARA ESTE MÊS! PODE ALTERALAS E PRESSIONAR O BOTÃO SALVAR")
+            builder.setMessage("THERE ARE ALREADY TARGETS SET FOR THIS MONTH! YOU CAN CHANGE THEM AND PRESS THE SAVE BUTTON")
                     .setCancelable(false)
                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                         }
                     });
-            //Cria um caixa de dialogo
+            //Create a dialog box
             AlertDialog alert = builder.create();
             //Setting the title manually
             alert.setTitle("ALERTA");
