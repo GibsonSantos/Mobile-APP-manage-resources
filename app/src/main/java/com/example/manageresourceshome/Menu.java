@@ -38,8 +38,8 @@ public class Menu extends AppCompatActivity {
         if(cursor.getCount()!=0){
             Intent intent = new Intent(getApplicationContext(), InsertSpending.class);
             startActivityForResult(intent, reqCode);
-        }else{//informa ao utilizador que o mesmo deve inserir metas de consumo antes de iniciar a inserção de consumo
-            builder.setMessage("Você ainda não tem metas de consumo para este mês, por favor insira para poder insirir seu consumo!")
+        }else{
+            builder.setMessage("You still don't have consumption goals for this month, please enter them so you can enter your consumption!")
                     .setCancelable(false)
                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
