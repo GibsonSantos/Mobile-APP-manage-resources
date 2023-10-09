@@ -87,7 +87,7 @@ public class monthStatisticsView extends AppCompatActivity {
         month = (TextView) findViewById(R.id.textMonthStatistics);
         month.setText(StringMonth);
 
-        //carrega e escreves os dados na activity
+        //load and write data to the activity
         getAllSpeding();
         updateAverage();
         getAllGoals();
@@ -111,13 +111,12 @@ public class monthStatisticsView extends AppCompatActivity {
             sumSpentGas = Float.parseFloat(cursor.getString(2));
             sumSpentWater = Float.parseFloat(cursor.getString(1));
         }else{
-            builder.setMessage("Ainda não existe consumo inseridos para o mês atual!")
+            builder.setMessage("There is still no consumption entered for the current month!")
                     .setCancelable(false)
                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                         }
                     });
-            //Cria um caixa de dialogo
             AlertDialog alert = builder.create();
             //Setting the title manually
             alert.setTitle("ALERTA");
@@ -126,7 +125,7 @@ public class monthStatisticsView extends AppCompatActivity {
         gAdapter.close();
     }
 
-    //recebe e escreve todas as metas presentas na base de dados
+    // receives and writes all goals present in the database
     public void getAllGoals(){
         gAdapter.open();
         Cursor cursor = gAdapter.verifyIfAlreadyInsertMonthGoal(StringMonth);
@@ -143,13 +142,12 @@ public class monthStatisticsView extends AppCompatActivity {
             insertGoalAverage();
             updateExpectedAverage();
         }else{
-            builder.setMessage("Ainda não existe metas inseridas para o mês atual!")
+            builder.setMessage("There are no goals yet entered for the current month!")
                     .setCancelable(false)
                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                         }
                     });
-            //Cria um caixa de dialogo
             AlertDialog alert = builder.create();
             //Setting the title manually
             alert.setTitle("ALERTA");
@@ -160,28 +158,28 @@ public class monthStatisticsView extends AppCompatActivity {
 
     public void updateExpected(){
         if(goalWater<sumSpentWater){
-            text_expectation_water.setText("ACIMA");
+            text_expectation_water.setText("ABOVE");
             text_expectation_water.setTextColor(Color.RED);
         }else{
-            text_expectation_water.setText("ABAIXO");
+            text_expectation_water.setText("BELLOW");
             text_expectation_water.setTextColor(Color.GREEN);
         }
         if(goalGas<sumSpentGas){
-            text_expectation_gas.setText("ACIMA");
+            text_expectation_gas.setText("ABOVE");
             text_expectation_gas.setTextColor(Color.RED);
         }else{
-            text_expectation_gas.setText("ABAIXO");
+            text_expectation_gas.setText("BELLOW");
             text_expectation_gas.setTextColor(Color.GREEN);
         }
         if(goalEnergy<sumSpentEnergy){
-            text_expectation_energy.setText("ACIMA");
+            text_expectation_energy.setText("ABOVE");
             text_expectation_energy.setTextColor(Color.RED);
         }else{
-            text_expectation_energy.setText("ABAIXO");
+            text_expectation_energy.setText("BELLOW");
             text_expectation_energy.setTextColor(Color.GREEN);
         }
     }
-    //atualiza a media consumida por dia do utilizador
+    //updates the user's average consumption per day
     public void updateAverage(){
         if(countSpentDays!=0) {
             floatAverageWater = sumSpentWater / countSpentDays;
@@ -193,7 +191,7 @@ public class monthStatisticsView extends AppCompatActivity {
         }
     }
 
-    //inseri a media indicada de consumo
+    //insert the indicated consumption measure
     public void insertGoalAverage(){
         Calendar cal = Calendar.getInstance();
         int maxDays = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
@@ -205,27 +203,27 @@ public class monthStatisticsView extends AppCompatActivity {
         text_gas_goal_average.setText(""+String.format("%.2f", floatGoalAverageGas));
         text_energy_goal_average.setText(""+String.format("%.2f", floatGoalAverageEnergy));
     }
-    //atualiza o esperado analizando a media consumida pelo utilizador
+    //updates what is expected by analyzing the media consumed by the user
     public void updateExpectedAverage(){
         if(floatGoalAverageWater<floatAverageWater){
-            text_expectation_water_average.setText("ACIMA");
+            text_expectation_water_average.setText("ABOVE");
             text_expectation_water_average.setTextColor(Color.RED);
         }else{
-            text_expectation_water_average.setText("ABAIXO");
+            text_expectation_water_average.setText("BELLOW");
             text_expectation_water_average.setTextColor(Color.GREEN);
         }
         if(floatGoalAverageGas<floatAverageGas){
-            text_expectation_gas_average.setText("ACIMA");
+            text_expectation_gas_average.setText("ABOVE");
             text_expectation_gas_average.setTextColor(Color.RED);
         }else{
-            text_expectation_gas_average.setText("ABAIXO");
+            text_expectation_gas_average.setText("BELLOW");
             text_expectation_gas_average.setTextColor(Color.GREEN);
         }
         if(floatGoalAverageEnergy<floatAverageEnergy){
-            text_expectation_energy_average.setText("ACIMA");
+            text_expectation_energy_average.setText("ABOVE");
             text_expectation_energy_average.setTextColor(Color.RED);
         }else{
-            text_expectation_energy_average.setText("ABAIXO");
+            text_expectation_energy_average.setText("BELLOW");
             text_expectation_energy_average.setTextColor(Color.GREEN);
         }
     }
