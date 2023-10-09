@@ -37,9 +37,9 @@ public class Settings extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                builder.setMessage("Deseja mesmo apagar os dados armazenados de consumo diário?")
+                builder.setMessage("Do you really want to delete the stored daily consumption data?")
                         .setCancelable(false)
-                        .setPositiveButton("SIM", new DialogInterface.OnClickListener() {
+                        .setPositiveButton("YES", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 gAdapter.open();
                                 gAdapter.clearDataMount();
@@ -48,17 +48,16 @@ public class Settings extends AppCompatActivity {
                                 String StringMonth = sdf.format(c.getTime());
                                 gAdapter.clearMonthSpeding(StringMonth);
                                 gAdapter.close();
-                                Toast.makeText(getApplicationContext(),"Dados apagados!",
+                                Toast.makeText(getApplicationContext(),"Deleted data!",
                                         Toast.LENGTH_SHORT).show();
                             }
                         })
-                        .setNegativeButton("NÃO", new DialogInterface.OnClickListener() {
+                        .setNegativeButton("NO", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                //cancela o dialogo caso o utilizador deseje continuar no jogo
                                 dialog.cancel();
                             }
                         });
-                //Cria um caixa de dialogo
+                //Create a dialog box
                 AlertDialog alert = builder.create();
                 //Setting the title manually
                 alert.setTitle("ALERTA");
@@ -70,9 +69,9 @@ public class Settings extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                builder.setMessage("Deseja mesmo apagar os dados armazenados de consumo por mês?")
+                builder.setMessage("Do you really want to delete the stored month consumption data?")
                         .setCancelable(false)
-                        .setPositiveButton("SIM", new DialogInterface.OnClickListener() {
+                        .setPositiveButton("YES", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 gAdapter.open();
                                 gAdapter.open();
@@ -83,20 +82,18 @@ public class Settings extends AppCompatActivity {
                                 gAdapter.clearMonthSpeding(StringMonth);
                                 gAdapter.clearDataYear();
                                 gAdapter.close();
-                                Toast.makeText(getApplicationContext(),"Dados apagados!",
+                                Toast.makeText(getApplicationContext(),"Deleted data!",
                                         Toast.LENGTH_SHORT).show();
                             }
                         })
-                        .setNegativeButton("NÃO", new DialogInterface.OnClickListener() {
+                        .setNegativeButton("NO", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                //cancela o dialogo caso o utilizador deseje continuar no jogo
                                 dialog.cancel();
                             }
                         });
-                //Cria um caixa de dialogo
                 AlertDialog alert = builder.create();
                 //Setting the title manually
-                alert.setTitle("ALERTA");
+                alert.setTitle("ALERT");
                 alert.show();
             }
         });
