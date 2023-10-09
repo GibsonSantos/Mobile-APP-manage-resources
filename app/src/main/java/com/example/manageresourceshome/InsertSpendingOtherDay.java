@@ -61,13 +61,12 @@ public class InsertSpendingOtherDay extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(water.getText().toString().length()==0 || gas.getText().toString().length()==0 || energy.getText().toString().length()==0 || otherDay.getText().toString().length()==0){
-                    builder.setMessage("NÃO PODEM EXISTIR CAMPOS VAZIOS!")
+                    builder.setMessage("THERE CANNOT BE EMPTY FIELDS!")
                             .setCancelable(false)
                             .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                 }
                             });
-                    //Cria um caixa de dialogo
                     AlertDialog alert = builder.create();
                     //Setting the title manually
                     alert.setTitle("ALERTA");
@@ -76,18 +75,18 @@ public class InsertSpendingOtherDay extends AppCompatActivity {
                     Calendar cal = Calendar.getInstance();
                     cal.setTime(date);
                     int currentDay = cal.get(Calendar.DAY_OF_MONTH);
-                    int daySelect = Integer.parseInt(otherDay.getText().toString());//armazena o dia selecionado pelo utilizador
+                    int daySelect = Integer.parseInt(otherDay.getText().toString());//stores the day selected by the user
                     if(daySelect>currentDay||daySelect<1){
-                        builder.setMessage("Dia invalido!")
+                        builder.setMessage("Invalid day!")
                                 .setCancelable(false)
                                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
                                     }
                                 });
-                        //Cria um caixa de dialogo
+    
                         AlertDialog alert = builder.create();
                         //Setting the title manually
-                        alert.setTitle("ALERTA");
+                        alert.setTitle("ALERT");
                         alert.show();
                     }else {
                         int year = Calendar.getInstance().get(Calendar.YEAR);
@@ -100,7 +99,7 @@ public class InsertSpendingOtherDay extends AppCompatActivity {
                         gAdapter.open();
                         Cursor curRes = gAdapter.verifyIfAlreadyInsertDaySpeding(dateString);
                         if(curRes.getCount()!=0){
-                            builder.setMessage("Está data já tem o seu consumo inserido! Você pode alteralo vizualizando os consumos diários!")
+                            builder.setMessage("This date already has your consumption entered! You can change it by viewing daily consumption!")
                                     .setCancelable(false)
                                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int id) {
@@ -114,9 +113,9 @@ public class InsertSpendingOtherDay extends AppCompatActivity {
                         }else{
                             long result = gAdapter.insertDaySpending(new DaySpending(dateString, parseFloat(water.getText().toString()), parseFloat(gas.getText().toString()), parseFloat(energy.getText().toString())));
                             if (result < 0) {
-                                Toast.makeText(getApplicationContext(), "Não foi possivel guardar os dados", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "Unable to save data", Toast.LENGTH_SHORT).show();
                             } else {
-                                Toast.makeText(getApplicationContext(), "Dados do jogo guardados!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "Saved game data!", Toast.LENGTH_SHORT).show();
                                 updateTableMonth();
                                 // end activit
                                 finish();
@@ -139,12 +138,12 @@ public class InsertSpendingOtherDay extends AppCompatActivity {
 
     public void updateTableMonth(){
         gAdapter.open();
-        //obtem os dados do ultimo mes inserido pelo utilizador
+        //gets data from the last month entered by the user
         Cursor cursor = gAdapter.getLastMonth();
         if(cursor.getCount()!=0){
             cursor.moveToLast();
             Cursor cursorAllSpeding = gAdapter.getAllSpedingMonth();
-            //obtem as estatisticas do ultimo mes
+            //get the statistics for the last month
             if(cursorAllSpeding.getCount()!=0){
                 cursorAllSpeding.moveToFirst();
                 gAdapter.insertAllDatasMonth(cursor.getString(0),Float.parseFloat(cursorAllSpeding.getString(1)),Float.parseFloat(cursorAllSpeding.getString(2)),Float.parseFloat(cursorAllSpeding.getString(3)));
