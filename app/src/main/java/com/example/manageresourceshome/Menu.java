@@ -45,7 +45,6 @@ public class Menu extends AppCompatActivity {
                         public void onClick(DialogInterface dialog, int id) {
                         }
                     });
-            //Cria um caixa de dialogo
             AlertDialog alert = builder.create();
             //Setting the title manually
             alert.setTitle("ALERTA");
