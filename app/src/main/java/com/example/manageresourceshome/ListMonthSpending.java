@@ -39,7 +39,7 @@ public class ListMonthSpending extends AppCompatActivity {
     public void displayGames(){
         loadContacts();  // carrega os jogos presemtes
 
-        // define o list adaptar
+        // define list adaptar
         ListAdapter adapter = new ListMonthSpending.ContactAdapter(this, VectorMonthSpeding);
         contactsListView = (ListView) findViewById(R.id.contacts_lv);
         contactsListView.setAdapter(adapter);
@@ -48,14 +48,14 @@ public class ListMonthSpending extends AppCompatActivity {
         contactsListView.setTextFilterEnabled(true);
     }
 
-    // carrega os jogos para o vetor games
+   // load the games into the games vector
     public void loadContacts() {
         VectorMonthSpeding = new Vector<>();
         gAdapter.open();
         Cursor curRes = gAdapter.getLastMonth();
         if(curRes!=null){
             if(curRes.getCount()==0){
-                Toast.makeText(this, "Não existem dias em que foram registrados o cosumo!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "There are no days on which consumption was recorded", Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -122,24 +122,24 @@ public class ListMonthSpending extends AppCompatActivity {
             textEnergyGoal.setText(String.valueOf(monthsSpeding.getEnergySpendingGoal()));
 
             if(monthsSpeding.getWaterSpending()>monthsSpeding.getWaterSpendingGoal()){
-                textResultWater.setText("ACIMA");
+                textResultWater.setText("ABOVE");
                 textResultWater.setTextColor(Color.RED);
             }else{
-                textResultWater.setText("ABAIXO");
+                textResultWater.setText("BELLOW");
                 textResultWater.setTextColor(Color.GREEN);
             }
             if(monthsSpeding.getGasSpending()>monthsSpeding.getGasSpendingGoal()){
-                textResultGas.setText("ACIMA");
+                textResultGas.setText("ABOVE");
                 textResultGas.setTextColor(Color.RED);
             }else{
-                textResultGas.setText("ABAIXO");
+                textResultGas.setText("BELLOW");
                 textResultGas.setTextColor(Color.GREEN);
             }
             if(monthsSpeding.getEnergySpending()>monthsSpeding.getEnergySpendingGoal()){
-                textResultEnergy.setText("ACIMA");
+                textResultEnergy.setText("ABOVE");
                 textResultEnergy.setTextColor(Color.RED);
             }else{
-                textResultEnergy.setText("ABAIXO");
+                textResultEnergy.setText("BELLOW");
                 textResultEnergy.setTextColor(Color.GREEN);
             }
 
