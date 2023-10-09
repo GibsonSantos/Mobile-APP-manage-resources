@@ -37,7 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:text="Consumido"
+            android:text="Consumed"
             android:textAlignment="center"
             android:textSize="16sp"></TextView>
 
@@ -45,7 +45,7 @@
             android:layout_width="81dp"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:text="Meta"
+            android:text="Goal"
             android:textAlignment="center"
             android:textSize="16sp" />
 
@@ -55,7 +55,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:padding="10dp"
-            android:text="Resultado"
+            android:text="Result"
             android:textAlignment="center"
             android:textSize="16sp" />
 
@@ -71,7 +71,7 @@
             android:layout_width="106dp"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:text="Água"
+            android:text="Water"
             android:textAlignment="center"
             android:textSize="16sp"></TextView>
 
@@ -96,7 +96,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:padding="10sp"
-            android:text="Acima"
+            android:text="Above"
             android:textAlignment="center" />
 
 
@@ -111,7 +111,7 @@
             android:layout_width="106dp"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:text="Gás"
+            android:text="Gas"
             android:textAlignment="center"
             android:textSize="16sp"></TextView>
 
@@ -136,7 +136,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:padding="10sp"
-            android:text="Acima"
+            android:text="Above"
             android:textAlignment="center" />
 
 
@@ -151,7 +151,7 @@
             android:layout_width="106dp"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:text="Energia"
+            android:text="Energy"
             android:textAlignment="center"
             android:textSize="16sp"></TextView>
 
@@ -176,7 +176,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:padding="10sp"
-            android:text="Acima"
+            android:text="Above"
             android:textAlignment="center" />
 
 
