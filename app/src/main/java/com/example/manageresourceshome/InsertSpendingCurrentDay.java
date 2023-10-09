@@ -51,20 +51,19 @@ public class InsertSpendingCurrentDay extends AppCompatActivity {
         textViewDate.setText(dateString);
 
         builder = new AlertDialog.Builder(this);
-        //essa função verifica se o mês acabou e se iniciou um novo, logo os dados dos dias do mes anterior vao ser apagados
+        //this function checks whether the month has ended and a new one has started, so data from the days of the previous month will be deleted
         updateTable();
 
         btnSalve.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(water.getText().toString().length()==0 || gas.getText().toString().length()==0 || energy.getText().toString().length()==0 ){
-                    builder.setMessage("NÃO PODEM EXISTIR CAMPOS VAZIOS!")
+                    builder.setMessage("THERE CANNOT BE EMPTY FIELDS!")
                             .setCancelable(false)
                             .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                 }
                             });
-                    //Cria um caixa de dialogo
                     AlertDialog alert = builder.create();
                     //Setting the title manually
                     alert.setTitle("ALERTA");
@@ -73,10 +72,10 @@ public class InsertSpendingCurrentDay extends AppCompatActivity {
                     gAdapter.open();
                     long result = gAdapter.insertDaySpending(new DaySpending(dateString,parseFloat(water.getText().toString()), parseFloat(gas.getText().toString()),parseFloat(energy.getText().toString())));
                     if(result < 0){
-                        Toast.makeText(getApplicationContext(),"Naõ foi possivel guardar os dados",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(),"Unable to save data",Toast.LENGTH_SHORT).show();
                     }
                     else{
-                        Toast.makeText(getApplicationContext(),"Dados do jogo guardados!",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(),"Saved game data!",Toast.LENGTH_SHORT).show();
                         updateTable();
                         // end activit
                         finish();
@@ -105,13 +104,13 @@ public class InsertSpendingCurrentDay extends AppCompatActivity {
         if(day==1){
             gAdapter.clearDataMount();
         }
-        //obtem os dados do ultimo mes inserido pelo utilizador
+        //gets data from the last month entered by the user
         Cursor cursor = gAdapter.getLastMonth();
         if(cursor.getCount()!=0){
             cursor.moveToLast();
             Cursor cursorAllSpeding = gAdapter.getAllSpedingMonth();
             cursorAllSpeding.moveToFirst();
-            //obtem as estatisticas do ultimo mes
+            //get the statistics for the last month
             if(!cursorAllSpeding.getString(0).equalsIgnoreCase("0")){
                 gAdapter.insertAllDatasMonth(cursor.getString(0),Float.parseFloat(cursorAllSpeding.getString(1)),Float.parseFloat(cursorAllSpeding.getString(2)),Float.parseFloat(cursorAllSpeding.getString(3)));
             }
