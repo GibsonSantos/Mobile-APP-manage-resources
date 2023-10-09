@@ -41,7 +41,7 @@ public class ListDaysSpending extends AppCompatActivity {
 
 
 
-    //função responsavel por apresentar os jogos
+    //Function responsible for show the games
     public void displayGames(){
         loadContacts();  // carrega os jogos presemtes
 
@@ -54,14 +54,14 @@ public class ListDaysSpending extends AppCompatActivity {
         contactsListView.setTextFilterEnabled(true);
     }
 
-    // carrega os jogos para o vetor games
+    // load the games into the games vector
     public void loadContacts() {
         VectorDaySpeding = new Vector<>();
         gAdapter.open();
         Cursor curRes = gAdapter.getAllDaysSepending();
         if(curRes!=null){
             if(curRes.getCount()==0){
-                Toast.makeText(this, "Não existem dias em que foram registrados o cosumo!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "There are no days on which consumption was recorded!", Toast.LENGTH_SHORT).show();
                 return;
             }
             StringBuilder sb = new StringBuilder();
@@ -102,7 +102,6 @@ public class ListDaysSpending extends AppCompatActivity {
             }
 
             // These are the Views inside the ListView item
-
             TextView date = (TextView) rowView.findViewById(R.id.msg_date);
             TextView textWater = (TextView) rowView.findViewById(R.id.msg_spending_water);
             TextView textGas = (TextView) rowView.findViewById(R.id.msg_spending_water_month);
@@ -135,7 +134,7 @@ public class ListDaysSpending extends AppCompatActivity {
                     b.putString("spedingEnergy", String.valueOf(daySpending.getSpedingEnergy()));
                     i.putExtras(b);
 
-                    // esperando por um retorno da página edit game
+                    // waiting for a return from the edit game page
                     startActivityForResult(i, reqCode);
                     finish();
                 }
@@ -145,7 +144,7 @@ public class ListDaysSpending extends AppCompatActivity {
             return rowView;
         }
 
-        // Estes metodos são necessarios
+        // These methods are necessary
         @Override
         public int getCount() {
             return adaptContacts.size();
