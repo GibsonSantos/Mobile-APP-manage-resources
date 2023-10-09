@@ -12,13 +12,13 @@ public class appDBAdapter {
     String DB_TABLE_DAYS = "monthly_expenses";
     String DB_TABLE_MONTHS = "year_expenses";
     int DB_VERSION = 2;
-    //esta tabela vai armazenar os valores consumidos para cada dia de um mes
+    //this table will store the values consumed for each day of a month
     String SQL_CREATE = "CREATE TABLE " + DB_TABLE_DAYS +
             " (d_dia TEXT NOT NULL, " +
             "d_water FLOAT NOT NULL, " +
             "d_gas FLOAT NOT NULL," +
             "d_light FLOAT NOT NULL); ";
-    //esta tabela contem o valor gasto (speding) de cada mes, e o a meta(goal) de consumo para cada recurso
+    //this table contains the amount spent each month, and the consumption goal for each resource
     String SQL_CREATE2 = "CREATE TABLE " + DB_TABLE_MONTHS +
             " (m_mount TEXT NOT NULL, " +
             "m_water_speding FLOAT, " +
@@ -70,7 +70,7 @@ public class appDBAdapter {
         dbHelper.close();
     }
 
-    // insere os gastos de um determinado dia
+    // insert expenses for a given day
     public long insertDaySpending(DaySpending aDaySpending){
         ContentValues vals = new ContentValues();
         vals.put("d_dia", aDaySpending.getDate());
@@ -95,7 +95,7 @@ public class appDBAdapter {
 
         return cursor;
     }
-    //verifica se ja foram inseridos consumos para um determinado dia
+    //checks if consumption has already been entered for a given day
     public Cursor verifyIfAlreadyInsertSpending(String date){
         String[] selectionArgs = {date};
         return db.query(DB_TABLE_DAYS,  // table
@@ -107,7 +107,7 @@ public class appDBAdapter {
                 null);          // orderBy
     }
 
-    // insere as metas para um detreminado mês
+    // insert goals for a given month
     public long insertMonthGoal(MonthsSpeding monthsSpeding){
         ContentValues vals = new ContentValues();
         vals.put("m_mount", monthsSpeding.getMonth());
@@ -120,7 +120,7 @@ public class appDBAdapter {
                 vals );         // initial values
     }
 
-    //verifica se ja foram inseridas metas para o mes
+   //checks if goals have already been entered for the month
     public Cursor verifyIfAlreadyInsertMonthGoal(String month){
         String[] selectionArgs = {month};
         return db.query(DB_TABLE_MONTHS,  // table
@@ -131,7 +131,7 @@ public class appDBAdapter {
                 null,           // having
                 null);          // orderBy
     }
-    //atualiza as metas de consumo
+    //update consumption goals
     public int updateGoals(MonthsSpeding monthsSpeding){
         ContentValues values = new ContentValues();
         values.put("m_water_goal", monthsSpeding.getWaterSpendingGoal());
@@ -145,7 +145,7 @@ public class appDBAdapter {
         return numberOfRowsAffected;
     }
 
-    //verifica se ja foram inseridas metas para o mes
+    //checks if goals have already been entered for the month
     public Cursor getAllSpedingMonth(){
         return db.query(DB_TABLE_DAYS,  // table
                 new String[] {"COUNT(*) ", "SUM(d_water) as d_water", "SUM(d_gas) as d_gas","SUM(d_light) as d_light"},           // columns
@@ -156,7 +156,7 @@ public class appDBAdapter {
                 null);          // orderBy
     }
 
-    // insere o valor consumido para aquele mes
+    // insert the amount consumed for that month
     public long insertAllDatasMonth(String month, Float allSpentWater, Float allSpentGas,Float allSpentEnergy){
         ContentValues values = new ContentValues();
         values.put("m_water_speding", allSpentWater);
@@ -184,7 +184,7 @@ public class appDBAdapter {
         return numberOfRowsAffected;
     }
 
-    //busca o ultimo mês
+    //search for the last month
     public Cursor getLastMonth(){
         return db.query(DB_TABLE_MONTHS,  // table
                 null,           // columns
