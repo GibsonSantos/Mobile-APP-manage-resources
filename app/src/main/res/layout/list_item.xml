@@ -37,7 +37,7 @@
             android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:text="Consumo de água"
+            android:text="Water consumption"
             android:textSize="16sp"></TextView>
 
         <TextView
@@ -58,7 +58,7 @@
             android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:text="Consumo de gás"
+            android:text="Gas consumption"
             android:textSize="16sp"></TextView>
 
         <TextView
@@ -79,7 +79,7 @@
             android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:text="Consumo de energia"
+            android:text="Energy consumption"
             android:textSize="16sp"></TextView>
 
         <TextView
