@@ -31,7 +31,7 @@ public class InsertSpending extends AppCompatActivity {
 
     public void btnInsertCurrentDay(View view){
         // creates the explicit intent
-        Boolean update = false; //esta variavel verifica se já foram inseridos dados nesse dia
+        Boolean update = false; //this variable checks if data has already been entered on that day
         gAdapter = new appDBAdapter(this);
         gAdapter.open();
 
@@ -39,16 +39,16 @@ public class InsertSpending extends AppCompatActivity {
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         String dateString = dateFormat.format(date);
         if(gAdapter.verifyIfAlreadyInsertSpending(dateString).getCount()!=0){
-            builder.setMessage("O consumo de hoje já foi inserido! \nSe deseja editar siga para Menu->Visualizar consumo->Consumos diários")
+            builder.setMessage("Today's consumption has already been entered! \nIf you want to edit, go to Menu->View consumption->Daily consumption")
                     .setCancelable(false)
                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                         }
                     });
-            //Cria um caixa de dialogo
+
             AlertDialog alert = builder.create();
             //Setting the title manually
-            alert.setTitle("ALERTA");
+            alert.setTitle("ALERT");
             alert.show();
         }else{
             Intent intent = new Intent(getApplicationContext(), InsertSpendingCurrentDay.class);
