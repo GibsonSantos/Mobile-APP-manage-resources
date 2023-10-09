@@ -43,9 +43,9 @@ public class ListDaysSpending extends AppCompatActivity {
 
     //Function responsible for show the games
     public void displayGames(){
-        loadContacts();  // carrega os jogos presemtes
+        loadContacts();  // load the present games
 
-        // define o list adaptar
+        // define the list adapter
         ListAdapter adapter = new ContactAdapter(this, VectorDaySpeding);
         contactsListView = (ListView) findViewById(R.id.contacts_lv);
         contactsListView.setAdapter(adapter);
@@ -123,10 +123,10 @@ public class ListDaysSpending extends AppCompatActivity {
             btnEdit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    // criando um novo intent
+                    // create a new intent
                     Intent i = new Intent(getApplicationContext(), EditSpedingDay.class);
 
-                    // adicionando um bundle com os dados do jogo ao intent
+                    // adding a bundle with game data to the intent
                     Bundle b = new Bundle();
                     b.putString("daySpeding", daySpending.getDate());
                     b.putString("spedingWater", String.valueOf(daySpending.getSpedingWater()));
