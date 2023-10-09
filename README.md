@@ -11,3 +11,20 @@ This application is a household resource management, which allows the user to en
  * Make the data available to see the variation in the household resource throughout the month
 
 ## How to install this example Java Mobile App Project 
+
+To install and run this Java mobile app project, follow these steps:
+
+1. **Clone the Repository:**
+   ``` shell
+   git clone https://github.com/GibsonSantos/Mobile-APP-manage-resources.git
+
+2. **Open the Project**:
+   Launch Android Studio (or your preferred Java development environment).
+   Click on "File" -> "Open" and navigate to the project directory you cloned in the previous step.
+
+3. **Alternatively, Emulate the App**:
+   If you don't have a physical Android device, you can use an emulator.
+   In Android Studio, create a virtual device using the AVD Manager and select it as the target device to run the app.
+
+4. **Start Using the App**:
+   Once the app is installed and running, you can start using it to manage your household resources.   
