@@ -41,10 +41,10 @@ public class EditSpedingDay extends AppCompatActivity {
         gas = (EditText) findViewById(R.id.edit_insert_gas);
         energy = (EditText) findViewById(R.id.edit_insert_energy);
 
-        Intent iIn = getIntent();  //obtem o intenet
-        Bundle bIn = iIn.getExtras(); // obtem o Bundle
+        Intent iIn = getIntent();  
+        Bundle bIn = iIn.getExtras(); 
 
-        //obtem os nomes dos jogadores, assim como o torneio
+       //gets the names of the players, as well as the tournament
 
         textViewDate = findViewById(R.id.msg_current_day);
         textViewDate.setText(bIn.getString("daySpeding"));
@@ -71,10 +71,10 @@ public class EditSpedingDay extends AppCompatActivity {
                     gAdapter.open();
                     int result = gAdapter.updateDaySpeding(new DaySpending(bIn.getString("daySpeding"),parseFloat(water.getText().toString()), parseFloat(gas.getText().toString()),parseFloat(energy.getText().toString())));
                     if(result < 0){
-                        Toast.makeText(getApplicationContext(),"Naõ foi possivel guardar os dados",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(),"Unable to save data",Toast.LENGTH_SHORT).show();
                     }
                     else{
-                        Toast.makeText(getApplicationContext(),"Dados do jogo guardados!",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(),"Saved!",Toast.LENGTH_SHORT).show();
                         updateTableMonth();//atualiza  os gastos da tabela com gastos do mes inteiro
                         // end activit
                         finish();
