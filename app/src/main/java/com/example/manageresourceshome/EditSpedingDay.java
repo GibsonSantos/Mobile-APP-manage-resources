@@ -62,7 +62,6 @@ public class EditSpedingDay extends AppCompatActivity {
                                 public void onClick(DialogInterface dialog, int id) {
                                 }
                             });
-                    //Cria um caixa de dialogo
                     AlertDialog alert = builder.create();
                     //Setting the title manually
                     alert.setTitle("ALERTA");
@@ -75,7 +74,7 @@ public class EditSpedingDay extends AppCompatActivity {
                     }
                     else{
                         Toast.makeText(getApplicationContext(),"Saved!",Toast.LENGTH_SHORT).show();
-                        updateTableMonth();//atualiza  os gastos da tabela com gastos do mes inteiro
+                        updateTableMonth();//updates table expenses with expenses for the entire month
                         // end activit
                         finish();
                     }
@@ -96,12 +95,12 @@ public class EditSpedingDay extends AppCompatActivity {
 
     public void updateTableMonth(){
         gAdapter.open();
-        //obtem os dados do ultimo mes inserido pelo utilizador
+        //gets data from the last month entered by the user
         Cursor cursor = gAdapter.getLastMonth();
         if(cursor.getCount()!=0){
             cursor.moveToLast();
             Cursor cursorAllSpeding = gAdapter.getAllSpedingMonth();
-            //obtem as estatisticas do ultimo mes
+            //get the statistics for the last month
             if(cursorAllSpeding.getCount()!=0){
                 cursorAllSpeding.moveToFirst();
                 gAdapter.insertAllDatasMonth(cursor.getString(0),Float.parseFloat(cursorAllSpeding.getString(1)),Float.parseFloat(cursorAllSpeding.getString(2)),Float.parseFloat(cursorAllSpeding.getString(3)));
